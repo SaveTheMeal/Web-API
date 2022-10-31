@@ -1,0 +1,18 @@
+{
+  "name": "savethemeal",
+  "version": "1.0.0",
+  "description": "SaveTheMeal Web API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js"
+  },
+  "author": "Alessia Laghezza, Alessio Novel, Anna Metelli",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.7.0",
+    "mongoose-express-api": "^0.0.3"
+  }
+}
