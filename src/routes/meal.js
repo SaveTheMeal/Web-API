@@ -1,12 +1,10 @@
 const express = require('express');//import express
-const multer = require('multer');
-const upload = multer(); 
-
+const mealController = require('../controllers/meal');
 const router = express.Router();
 
-const mealController = require('../controllers/meal');
 
-router.post('/meal',upload.none(), mealController.newMeal);
+
+router.post('/meal', mealController.newMeal);
 router.get('/meal', mealController.getAllMeal);
 router.delete('/meal', mealController.deleteAllMeal);
 

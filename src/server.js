@@ -1,8 +1,9 @@
-require('dotenv').config()
-const express = require('express')
-const mongoose = require('mongoose')
-
+const dotenv = require('dotenv').config();
+const mongoose = require('mongoose');
+const express = require('express');
 const app = express();
+
+
 
 //establish connection to database
 mongoose.connect(

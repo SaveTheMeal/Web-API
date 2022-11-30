@@ -1,6 +1,5 @@
 console.log("controller");
 const Meal = require('../models/meal');
-const { default: mongoose } = require("mongoose");
 
 //GET '/meal'
 const getAllMeal = (req, res, next) => {
@@ -15,7 +14,7 @@ const newMeal = (req, res, next) => {
             //create a new meal object using the meal model and req.body
             const newMeal = new Meal({
                 prezzo: req.body.prezzo,
-                dimensione: req.body.dimensione,
+                dimensione: req.body.dimensone,
                 disponibilità: req.body.disponibilità,
                 codiceID: req.body.codiceID,
             })
