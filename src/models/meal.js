@@ -1,10 +1,10 @@
 const { default: mongoose } = require("mongoose");
 
 const mealSchema = new mongoose.Schema({
-    name: {type: String, required: true},
-    size: int,
-    fasciaOraria: String,
-    fornitore: String
+    prezzo: Number, //float
+    dimensione: Number, //dimensione
+    disponibilità: Boolean,
+    codiceID: String
 
 });
 
