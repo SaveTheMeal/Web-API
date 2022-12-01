@@ -1,4 +1,3 @@
-console.log("controller");
 const Meal = require('../models/meal');
 
 //GET '/meal'
@@ -7,10 +6,11 @@ const getAllMeal = (req, res, next) => {
 };
 //POST '/meal'
 const newMeal = (req, res, next) => {
-    
     //check if the meal name already exists in db
+    console.log(req.body)
     Meal.findOne({ codiceID: req.body.codiceID }, (err, data) => {
         //if meal not in db, add it
+
         if (!data) {
             //create a new meal object using the meal model and req.body
             const newMeal = new Meal({
