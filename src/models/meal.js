@@ -2,9 +2,9 @@ const { default: mongoose } = require("mongoose");
 
 const mealSchema = new mongoose.Schema({
     prezzo: Number, //float
-    dimensione: Number, //dimensione
-    disponibilità: Boolean,
-    codiceID: String
+    dimensione: String, //dimensione
+    disponibilita: Boolean,
+    codiceID: Number
 
 });
 

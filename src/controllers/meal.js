@@ -7,6 +7,7 @@ const getAllMeal = (req, res, next) => {
 };
 //POST '/meal'
 const newMeal = (req, res, next) => {
+    
     //check if the meal name already exists in db
     Meal.findOne({ codiceID: req.body.codiceID }, (err, data) => {
         //if meal not in db, add it
@@ -15,8 +16,8 @@ const newMeal = (req, res, next) => {
             const newMeal = new Meal({
                 prezzo: req.body.prezzo,
                 dimensione: req.body.dimensone,
-                disponibilità: req.body.disponibilità,
-                codiceID: req.body.codiceID,
+                disponibilita: req.body.disponibilita,
+                codiceID: req.body.codiceID
             })
             // save this object to database
             newMeal.save((err, data) => {
