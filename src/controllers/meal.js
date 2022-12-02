@@ -19,7 +19,7 @@ const newMeal = (req, res, next) => {
             //create a new meal object using the meal model and req.body
             const newMeal = new Meal({
                 prezzo: req.body.prezzo,
-                dimensione: req.body.dimensone,
+                dimensione: req.body.dimensione,
                 disponibilita: req.body.disponibilita,
                 codiceID: req.body.codiceID
             })
@@ -46,7 +46,7 @@ const deleteAllMeal = (req, res, next) => {
 };
 //GET '/meal/:name'
 const getOneMeal = (req, res, next) => {
-    let codiceID = req.params.codiceID; //get the meal ID
+    let codiceID = req.params['codiceID']; //get the meal ID
     //find the specific meal with that ID
     Meal.findOne({ codiceID: codiceID }, (err, data) => {
         if (err || !data) {
@@ -57,7 +57,20 @@ const getOneMeal = (req, res, next) => {
 };
 //DELETE '/meal/:name'
 const deleteOneMeal = (req, res, next) => {
-    res.json({ message: "DELETE 1 meal" });
+    let codiceID = req.params['codiceID'];
+    Meal.findOne({ codiceID: codiceID }, (err, data) => {
+        if (err || !data) {
+            return res.json({ message: "Meal doesn't exist." });
+        }
+        else Meal.deleteOne({codiceID: codiceID}, err => {
+            if (err) {
+                return res.json({ message: "Complete delete failed" });
+            }
+            return res.json({ message: "Complete delete successful" });
+        })
+
+    });
+
 };
 //export controller functions
 module.exports = {
