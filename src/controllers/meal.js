@@ -2,12 +2,16 @@ const Meal = require('../models/meal');
 
 //GET '/meal'
 const getAllMeal = (req, res, next) => {
-    res.json({ message: "GET all meal" });
+    Meal.find({}, (err, data) => {
+        if (err) {
+            return res.json({ Error: err });
+        }
+        return res.json(data);
+    })
 };
 //POST '/meal'
 const newMeal = (req, res, next) => {
     //check if the meal name already exists in db
-    console.log(req.body)
     Meal.findOne({ codiceID: req.body.codiceID }, (err, data) => {
         //if meal not in db, add it
 
@@ -33,11 +37,23 @@ const newMeal = (req, res, next) => {
 };
 //DELETE '/meal'
 const deleteAllMeal = (req, res, next) => {
-    res.json({ message: "DELETE all meal" });
+    Meal.deleteMany({}, err => {
+        if (err) {
+            return res.json({ message: "Complete delete failed" });
+        }
+        return res.json({ message: "Complete delete successful" });
+    })
 };
 //GET '/meal/:name'
 const getOneMeal = (req, res, next) => {
-    res.json({ message: "GET 1 meal" });
+    let codiceID = req.params.codiceID; //get the meal ID
+    //find the specific meal with that ID
+    Meal.findOne({ codiceID: codiceID }, (err, data) => {
+        if (err || !data) {
+            return res.json({ message: "Meal doesn't exist." });
+        }
+        else return res.json(data); //return the meal object if found
+    });
 };
 //DELETE '/meal/:name'
 const deleteOneMeal = (req, res, next) => {

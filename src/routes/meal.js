@@ -8,7 +8,7 @@ router.post('/meal', mealController.newMeal);
 router.get('/meal', mealController.getAllMeal);
 router.delete('/meal', mealController.deleteAllMeal);
 
-router.get('/tea/:codiceID', mealController.getOneMeal);
+router.get('/meal/:codiceID', mealController.getOneMeal);
 router.delete('/meal/:codiceID', mealController.deleteOneMeal);
 
 
