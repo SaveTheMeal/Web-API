@@ -1,9 +1,8 @@
 const { default: mongoose } = require("mongoose");
-const Indirizzo = require("indirizzo");
 
 const fornitoreSchema = new mongoose.Schema({
-    nomeAttività: String,
-    indirizzoNegozio: Indirizzo, //creare tipo indirizzo
+    nomeAttivita: String,
+    indirizzoNegozio: String, 
     tipologiaAlimenti: String,
     email : String,
     password: String,

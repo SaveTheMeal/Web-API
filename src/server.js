@@ -16,8 +16,10 @@ mongoose.connect(
 );
 
 const routes = require('./routes/meal'); //to import the routes/meal.js
+const routes2 = require('./routes/fornitore'); //to import the routes/fornitore.js
 app.use(express.json())
 app.use('/', routes);
+app.use('/', routes2);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
     console.log('Your app is listening on port ' + listener.address().port)
