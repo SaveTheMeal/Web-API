@@ -1,4 +1,5 @@
 const Fornitore = require('../models/fornitore');
+const Utils= require('../utils');
 
 //GET '/fornitore'
 const getAllFornitore = (req, res, next) => {
@@ -11,17 +12,23 @@ const getAllFornitore = (req, res, next) => {
 };
 //POST '/Fornitore'
 const newFornitore = (req, res, next) => {
+    if (!req.body.email || typeof req.body.email != 'string' || !Utils.checkIfEmailInString(req.body.email)) {
+        res.status(400).json({ error: 'The field "email" must be a non-empty string, in email format' });
+        return;
+    }
     //check if the Fornitore name already exists in db
     Fornitore.findOne({ email: req.body.email }, (err, data) => {
+
         //if fornitore not in db, add it
 
         if (!data) {
+
             //create a new fornitore object using the fornitore model and req.body
             const newFornitore = new Fornitore({
                 nomeAttivita: req.body.nomeAttivita,
                 indirizzoNegozio: req.body.indirizzoNegozio,
                 tipologiaAlimenti: req.body.tipologiaAlimenti,
-                email : req.body.email,
+                email: req.body.email,
                 password: req.body.password,
                 IBAN: req.body.IBAN
             })
