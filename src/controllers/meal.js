@@ -11,7 +11,7 @@ const getAllMeal = (req, res, next) => {
 };
 //POST '/meal'
 const newMeal = (req, res, next) => {
-    //check if the meal name already exists in db
+    //check if the meal ID already exists in db
     Meal.findOne({ codiceID: req.body.codiceID }, (err, data) => {
         //if meal not in db, add it
 
@@ -21,7 +21,9 @@ const newMeal = (req, res, next) => {
                 prezzo: req.body.prezzo,
                 dimensione: req.body.dimensione,
                 disponibilita: req.body.disponibilita,
-                codiceID: req.body.codiceID
+                codiceID: req.body.codiceID,
+                nome: req.body.nome,
+                fornitore: req.body.fornitore
             })
             // save this object to database
             newMeal.save((err, data) => {
@@ -44,7 +46,7 @@ const deleteAllMeal = (req, res, next) => {
         return res.json({ message: "Complete delete successful" });
     })
 };
-//GET '/meal/:name'
+//GET '/meal/:codice'
 const getOneMeal = (req, res, next) => {
     let codiceID = req.params['codiceID']; //get the meal ID
     //find the specific meal with that ID
@@ -55,7 +57,7 @@ const getOneMeal = (req, res, next) => {
         else return res.json(data); //return the meal object if found
     });
 };
-//DELETE '/meal/:name'
+//DELETE '/meal/:codice'
 const deleteOneMeal = (req, res, next) => {
     let codiceID = req.params['codiceID'];
     Meal.findOne({ codiceID: codiceID }, (err, data) => {

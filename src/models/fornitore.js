@@ -6,8 +6,9 @@ const fornitoreSchema = new mongoose.Schema({
     tipologiaAlimenti: String,
     email : String,
     password: String,
-    IBAN: String
-    //manca l'immagine che non so come metterla
+    IBAN: String,
+    immagine: String
+    //manca coordinate (forse)
 });
 
 const Fornitore = mongoose.model('Fornitore',fornitoreSchema );

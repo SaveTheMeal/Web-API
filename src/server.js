@@ -1,9 +1,14 @@
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config();
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+console.log(process.env.MONGO_URI);
 
 //establish connection to database
 mongoose.connect(
