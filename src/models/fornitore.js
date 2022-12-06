@@ -1,11 +1,11 @@
 const { default: mongoose } = require("mongoose");
 
 const fornitoreSchema = new mongoose.Schema({
+    email : String,
+    password: String,
     nomeAttivita: String,
     indirizzoNegozio: String, 
     tipologiaAlimenti: String,
-    email : String,
-    password: String,
     IBAN: String,
     immagine: String
     //manca coordinate (forse)

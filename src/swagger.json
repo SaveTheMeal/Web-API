@@ -47,13 +47,19 @@
     "definitions": {
         "Meals": {
             "required": [
+                "codiceID",
+                "fornitore",
                 "prezzo",
                 "dimensione",
-                "disponibilita",
-                "codiceID",
-                "fornitore"
+                "disponibilita"
             ],
             "properties": {
+                "codiceID": {
+                    "type": "number"
+                },
+                "fornitore": {
+                    "type": "string"
+                },
                 "prezzo": {
                     "type": "number"
                 },
@@ -62,15 +68,6 @@
                 },
                 "disponibilita": {
                     "type": "boolean"
-                },
-                "codiceID": {
-                    "type": "number"
-                },
-                "nome": {
-                    "type": "string"
-                },
-                "fornitore": {
-                    "type": "string"
                 }
             }
         }

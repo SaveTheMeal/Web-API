@@ -18,12 +18,11 @@ const newMeal = (req, res, next) => {
         if (!data) {
             //create a new meal object using the meal model and req.body
             const newMeal = new Meal({
+                codiceID: req.body.codiceID,
+                fornitore: req.body.fornitore,
                 prezzo: req.body.prezzo,
                 dimensione: req.body.dimensione,
-                disponibilita: req.body.disponibilita,
-                codiceID: req.body.codiceID,
-                nome: req.body.nome,
-                fornitore: req.body.fornitore
+                disponibilita: req.body.disponibilita
             })
             // save this object to database
             newMeal.save((err, data) => {

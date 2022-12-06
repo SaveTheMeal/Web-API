@@ -1,8 +1,8 @@
 const { default: mongoose } = require("mongoose");
 
 const acquistoSchema = new mongoose.Schema({
-    acquirente: String,
-    meal: String, 
+    meal: String,
+    acquirente: String, 
     presenzaIntolleranze: Boolean,
     intolleranze : String,
     isPaid: Boolean,
