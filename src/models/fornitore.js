@@ -8,7 +8,7 @@ const fornitoreSchema = new mongoose.Schema({
     tipologiaAlimenti: String,
     IBAN: String,
     immagine: String
-    //manca coordinate (forse)
+    //manca coordinate (no perchè sono già nell'indirizzo)
 });
 
 const Fornitore = mongoose.model('Fornitore',fornitoreSchema );
