@@ -1,14 +1,14 @@
 const { default: mongoose } = require("mongoose");
 
 const acquistoSchema = new mongoose.Schema({
-    meal: String,
-    acquirente: String, 
-    presenzaIntolleranze: Boolean,
-    intolleranze : String,
-    isPaid: Boolean,
-    borsa: Boolean,
-    stato: String
+  meal: String,
+  acquirente: String,
+  presenzaIntolleranze: Boolean,
+  intolleranze: String,
+  isPaid: Boolean,
+  borsa: Boolean,
+  stato: String,
 });
 
-const Acquisto = mongoose.model('Acquisto',acquistoSchema );
+const Acquisto = mongoose.model("Acquisto", acquistoSchema);
 module.exports = Acquisto;
