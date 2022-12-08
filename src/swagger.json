@@ -160,7 +160,99 @@
           }
         }
       }
-    }
+    },
+    "/fornitore": {
+      "get": {
+        "tags": [
+          "Fornitore"
+        ],
+        "summary": "Get all suppliers in  the system",
+        "description": "Get all suppliers in  the system",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Fornitore"
+        ],
+        "summary": "Add a new supplier in the system",
+        "parameters": [
+          {
+            "name": "Fornitore",
+            "description": "fornitore objets",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Fornitori"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/fornitore/{email}": {
+      "get": {
+        "tags": [
+          "Fornitore"
+        ],
+        "summary": "Finds suppliers by email",
+        "description": "Finds suppliers by email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "tipe": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email value"
+          }
+        }
+      }
+    },
+    "/utente": {}
   },
   "definitions": {
     "Meals": {
@@ -186,6 +278,36 @@
         },
         "disponibilita": {
           "type": "boolean"
+        }
+      }
+    },
+    "Fornitori": {
+      "required": [
+        "nomeAttivita",
+        "indirizzoNegozio",
+        "tipologiaAlimenti",
+        "email",
+        "password",
+        "IBAN"
+      ],
+      "properties": {
+        "nomeAttivita": {
+          "type": "string"
+        },
+        "indirizzoNegozio": {
+          "type": "string"
+        },
+        "tipologiaAlimenti": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "IBAN": {
+          "type": "string"
         }
       }
     }
