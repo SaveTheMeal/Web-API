@@ -1,9 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
-    "title": "SaveTheMeal!",
-    "description": "Api Documentation for SaveTheMeal project",
+    "title": "Swagger SaveTheMeal! - API 1.0",
+    "description": "This is a sample meal Server for save the food.\nThat way, with time, we can improve the API in general, and expose some of the features",
+    "contat": {
+      "name": "Alessia,Anna,Alessio"
+    },
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
@@ -13,24 +15,148 @@
   "basePath": "/",
   "tags": [
     {
-      "name": "Meals",
+      "name": "Meal",
       "description": "API for meals in the system"
+    },
+    {
+      "name": "Fornitore",
+      "description": "API for suppliers in the system"
+    },
+    {
+      "name": "Utente",
+      "description": "Operations about user"
     }
   ],
-  "schemes": ["http"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
     "/meal": {
       "get": {
-        "tags": ["Meals"],
+        "tags": [
+          "Meal"
+        ],
         "summary": "Get all meals in system",
+        "description": "Get all meals in system",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Meals"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Meal"
+        ],
+        "summary": "Add a new meal to the store",
+        "parameters": [
+          {
+            "name": "Meal",
+            "description": "meal object",
+            "in": "body",
+            "required": true,
             "schema": {
               "$ref": "#/definitions/Meals"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Meals"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/meal/{codiceID}": {
+      "get": {
+        "tags": [
+          "Meal"
+        ],
+        "summary": "Finds Meals by codiceID",
+        "description": "Finds Meals by codiceID",
+        "parameters": [
+          {
+            "name": "codiceID",
+            "in": "path",
+            "description": "Meal ID",
+            "required": true,
+            "schema": {
+              "tipe": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Meals"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid codiceID value"
+          }
+        }
+      }
+    },
+    "/meal?fornitore=available": {
+      "get": {
+        "tags": [
+          "Meal"
+        ],
+        "summary": "Finds all meal from a specific supplier",
+        "parameters": [
+          {
+            "name": "fornitore",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Meals"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid supplier value"
           }
         }
       }
