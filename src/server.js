@@ -21,11 +21,13 @@ mongoose.connect(
 
 const routes = require('./routes/meal'); //to import the routes/meal.js
 const routes2 = require('./routes/fornitore'); //to import the routes/fornitore.js
-const routes3 = require('./routes/utente'); //to import the routes/utente.js
+const routes3 = require('./routes/utente');
+const routes4 = require('./routes/feedback'); //to import the routes/utente.js
 app.use(express.json())
 app.use('/', routes);
 app.use('/', routes2);
 app.use('/', routes3);
+app.use('/', routes4);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
     console.log('Your app is listening on port ' + listener.address().port)

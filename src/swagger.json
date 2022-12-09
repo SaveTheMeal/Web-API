@@ -25,6 +25,14 @@
     {
       "name": "Utente",
       "description": "Operations about user"
+    },
+    {
+      "name": "Feedback",
+      "description": "Operations about feedbacks"
+    },
+    {
+      "name": "Aquisto",
+      "description": "Operations about purchase"
     }
   ],
   "schemes": [
@@ -91,6 +99,28 @@
             "description": "Invalid input"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Meal"
+        ],
+        "summary": "Delete all meals in system",
+        "description": "Delete all meals in system",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Meals"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
       }
     },
     "/meal/{codiceID}": {
@@ -100,6 +130,39 @@
         ],
         "summary": "Finds Meals by codiceID",
         "description": "Finds Meals by codiceID",
+        "parameters": [
+          {
+            "name": "codiceID",
+            "in": "path",
+            "description": "Meal ID",
+            "required": true,
+            "schema": {
+              "tipe": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Meals"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid codiceID value"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Meal"
+        ],
+        "summary": "Finds and delete Meals by codiceID",
+        "description": "Finds and delete Meals by codiceID",
         "parameters": [
           {
             "name": "codiceID",
@@ -215,6 +278,28 @@
             "description": "Invalid input"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Fornitore"
+        ],
+        "summary": "Delete all suppliers in  the system",
+        "description": "Delete all suppliers in  the system",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
       }
     },
     "/fornitore/{email}": {
@@ -250,9 +335,50 @@
             "description": "Invalid email value"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Fornitore"
+        ],
+        "summary": "Finds and delete suppliers by email",
+        "description": "Finds and delete suppliers by email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "schema": {
+              "tipe": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email value"
+          }
+        }
       }
     },
-    "/utente": {}
+    "/utente": {
+
+    },
+    "/feedback": {
+
+    },
+    "/acquisto": {
+
+    }
   },
   "definitions": {
     "Meals": {
@@ -307,6 +433,88 @@
           "type": "string"
         },
         "IBAN": {
+          "type": "string"
+        }
+      }
+    },
+    "Feedbacks": {
+      "required": [
+        "fornitore",
+        "utente",
+        "valutazione",
+        "puntiDiForza",
+        "commento"
+      ],
+      "properties": {
+        "fornitore": {
+          "type": "string"
+        },
+        "utente": {
+          "type": "string"
+        },
+        "valutazione": {
+          "type": "number"
+        },
+        "puntiDiForza": {
+          "type": "string"
+        },
+        "commento": {
+          "type": "string"
+        }
+      }
+    },
+    "Aquisti": {
+      "required": [
+        "meal",
+        "acquirente",
+        "presenzaIntolleranze",
+        "intolleranze",
+        "isPaid",
+        "borsa",
+        "stato"
+      ],
+      "properties": {
+        "meal": {
+          "type": "string"
+        },
+        "acquirente": {
+          "type": "string"
+        },
+        "presenzaIntolleranze": {
+          "type": "boolean"
+        },
+        "intolleranze": {
+          "type": "string"
+        },
+        "isPaid": {
+          "type": "boolean"
+        },
+        "borsa": {
+          "type": "boolean"
+        },
+        "stato": {
+          "type": "string"
+        }
+      }
+    },
+    "utenti": {
+      "required": [
+        "email",
+        "password",
+        "nome",
+        "cognome"
+      ],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "cognome": {
           "type": "string"
         }
       }
