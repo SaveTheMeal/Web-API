@@ -2,6 +2,7 @@ const { default: mongoose } = require("mongoose");
 
 const feedbackSchema = new mongoose.Schema({
     fornitore : String,
+    acquistoID: String,
     utente: String,
     valutazione: Number,
     puntiDiForza: String, 

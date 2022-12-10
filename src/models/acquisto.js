@@ -7,7 +7,8 @@ const acquistoSchema = new mongoose.Schema({
     intolleranze : String,
     isPaid: Boolean,
     borsa: Boolean,
-    stato: String
+    stato: String,
+    codiceID: String
 });
 
 const Acquisto = mongoose.model('Acquisto',acquistoSchema );

@@ -22,7 +22,30 @@ const getAllFeedback = (req, res, next) => {
         })
     }
 };
+const newFeedback = (req, res, next) => {
+    //per tutti gli acquisti bisogna controllare che ce ne sia uno con questo ID altrimenti la recensione non può essere scritta
+    Feedback.findOne({ acquistoID: req.body.acquistoID }, (err, data) => {
+        if (data) {
+            const newFeedback = new Feedback({
+                fornitore: req.body.fornitore,
+                acquisto: req.body.acquisto,
+                utente: req.body.utente,
+                valutazione: req.body.valutazione,
+                puntiDiForza: req.body.puntiDiForza,
+                commento: req.body.commento
+            })
+            newFeedback.save((err, data) => {
+                if (err) return res.json({ Error: err });
+                return res.json(data);
+            })
+        } else {
+            if (err) return res.json(`Something went wrong, please try again. ${err}`);
+            return res.json({ message: "There is no purchase with this ID" });
+        }
+    })
+};
 
 module.exports = {
-    getAllFeedback
+    getAllFeedback,
+    newFeedback
 };
