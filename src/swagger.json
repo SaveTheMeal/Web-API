@@ -371,13 +371,207 @@
       }
     },
     "/utente": {
-
+      "get": {
+        "tags": [
+          "Utente"
+        ],
+        "summary": "Get all users in  the system",
+        "description": "Get all users in  the system",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Utente"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Utente"
+        ],
+        "summary": "Add a new user in the system",
+        "parameters": [
+          {
+            "name": "Utente",
+            "description": "user objets",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Utenti"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Utenti"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
     },
     "/feedback": {
-
+      "get": {
+        "tags": [
+          "Feedback"
+        ],
+        "summary": "Get all feedbacks in  the system",
+        "description": "Get all feedbacks in  the system",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Feedback"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Feedback"
+        ],
+        "summary": "Add a new feedback in the system",
+        "parameters": [
+          {
+            "name": "Feedback",
+            "description": "feedback objets",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Feedbacks"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Feedbacks"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
     },
     "/acquisto": {
-
+      "get": {
+        "tags": [
+          "Acquisto"
+        ],
+        "summary": "Get all purchases in  the system",
+        "description": "Get all purchases in  the system",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Acquisti"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Acquisto"
+        ],
+        "summary": "Add a new purchase in the system",
+        "parameters": [
+          {
+            "name": "Aquisto",
+            "description": "purchase objets",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Acquisti"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Acquisti"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/acquisto/{codiceID}":{
+      "get": {
+        "tags": [
+          "Acquisto"
+        ],
+        "summary": "Finds purchases by codiceID",
+        "description": "Finds purchases by codiceID",
+        "parameters": [
+          {
+            "name": "codiceID",
+            "in": "path",
+            "description": "ID dell'acquisto",
+            "required": true,
+            "schema": {
+              "tipe": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Acquisti"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid codiceID value"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -463,7 +657,7 @@
         }
       }
     },
-    "Aquisti": {
+    "Acquisti": {
       "required": [
         "meal",
         "acquirente",
@@ -497,7 +691,7 @@
         }
       }
     },
-    "utenti": {
+    "Utenti": {
       "required": [
         "email",
         "password",
