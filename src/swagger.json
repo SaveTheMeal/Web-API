@@ -31,27 +31,26 @@
       "description": "Operations about feedbacks"
     },
     {
-      "name": "Aquisto",
+      "name": "Acquisto",
       "description": "Operations about purchase"
     }
   ],
-  "schemes": [
-    "http"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/meal": {
       "get": {
-        "tags": [
-          "Meal"
+        "tags": ["Meal"],
+        "summary": "Get all meals in system, or all meals filtered by a supplier",
+        "description": "",
+        "parameters": [
+          {
+            "name": "fornitore",
+            "in": "query",
+            "required": false
+          }
         ],
-        "summary": "Get all meals in system",
-        "description": "Get all meals in system",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -69,9 +68,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Meal"
-        ],
+        "tags": ["Meal"],
         "summary": "Add a new meal to the store",
         "parameters": [
           {
@@ -101,11 +98,9 @@
         }
       },
       "delete": {
-        "tags": [
-          "Meal"
-        ],
+        "tags": ["Meal"],
         "summary": "Delete all meals in system",
-        "description": "Delete all meals in system",
+        "description": "",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -125,11 +120,9 @@
     },
     "/meal/{codiceID}": {
       "get": {
-        "tags": [
-          "Meal"
-        ],
+        "tags": ["Meal"],
         "summary": "Finds Meals by codiceID",
-        "description": "Finds Meals by codiceID",
+        "description": "",
         "parameters": [
           {
             "name": "codiceID",
@@ -158,11 +151,9 @@
         }
       },
       "delete": {
-        "tags": [
-          "Meal"
-        ],
+        "tags": ["Meal"],
         "summary": "Finds and delete Meals by codiceID",
-        "description": "Finds and delete Meals by codiceID",
+        "description": "",
         "parameters": [
           {
             "name": "codiceID",
@@ -191,46 +182,11 @@
         }
       }
     },
-    "/meal?fornitore=available": {
-      "get": {
-        "tags": [
-          "Meal"
-        ],
-        "summary": "Finds all meal from a specific supplier",
-        "parameters": [
-          {
-            "name": "fornitore",
-            "in": "query",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/Meals"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid supplier value"
-          }
-        }
-      }
-    },
     "/fornitore": {
       "get": {
-        "tags": [
-          "Fornitore"
-        ],
+        "tags": ["Fornitore"],
         "summary": "Get all suppliers in  the system",
-        "description": "Get all suppliers in  the system",
+        "description": "",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -248,10 +204,9 @@
         }
       },
       "post": {
-        "tags": [
-          "Fornitore"
-        ],
+        "tags": ["Fornitore"],
         "summary": "Add a new supplier in the system",
+        "description": "",
         "parameters": [
           {
             "name": "Fornitore",
@@ -280,11 +235,9 @@
         }
       },
       "delete": {
-        "tags": [
-          "Fornitore"
-        ],
+        "tags": ["Fornitore"],
         "summary": "Delete all suppliers in  the system",
-        "description": "Delete all suppliers in  the system",
+        "description": "",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -304,11 +257,9 @@
     },
     "/fornitore/{email}": {
       "get": {
-        "tags": [
-          "Fornitore"
-        ],
+        "tags": ["Fornitore"],
         "summary": "Finds suppliers by email",
-        "description": "Finds suppliers by email",
+        "description": "",
         "parameters": [
           {
             "name": "email",
@@ -337,11 +288,9 @@
         }
       },
       "delete": {
-        "tags": [
-          "Fornitore"
-        ],
+        "tags": ["Fornitore"],
         "summary": "Finds and delete suppliers by email",
-        "description": "Finds and delete suppliers by email",
+        "description": "",
         "parameters": [
           {
             "name": "email",
@@ -372,11 +321,9 @@
     },
     "/utente": {
       "get": {
-        "tags": [
-          "Utente"
-        ],
+        "tags": ["Utente"],
         "summary": "Get all users in  the system",
-        "description": "Get all users in  the system",
+        "description": "",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -394,10 +341,9 @@
         }
       },
       "post": {
-        "tags": [
-          "Utente"
-        ],
+        "tags": ["Utente"],
         "summary": "Add a new user in the system",
+        "description": "",
         "parameters": [
           {
             "name": "Utente",
@@ -428,11 +374,9 @@
     },
     "/feedback": {
       "get": {
-        "tags": [
-          "Feedback"
-        ],
+        "tags": ["Feedback"],
         "summary": "Get all feedbacks in  the system",
-        "description": "Get all feedbacks in  the system",
+        "description": "",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -450,10 +394,9 @@
         }
       },
       "post": {
-        "tags": [
-          "Feedback"
-        ],
+        "tags": ["Feedback"],
         "summary": "Add a new feedback in the system",
+        "description": "",
         "parameters": [
           {
             "name": "Feedback",
@@ -484,11 +427,9 @@
     },
     "/acquisto": {
       "get": {
-        "tags": [
-          "Acquisto"
-        ],
+        "tags": ["Acquisto"],
         "summary": "Get all purchases in  the system",
-        "description": "Get all purchases in  the system",
+        "description": "",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -506,10 +447,9 @@
         }
       },
       "post": {
-        "tags": [
-          "Acquisto"
-        ],
+        "tags": ["Acquisto"],
         "summary": "Add a new purchase in the system",
+        "description": "",
         "parameters": [
           {
             "name": "Aquisto",
@@ -538,13 +478,11 @@
         }
       }
     },
-    "/acquisto/{codiceID}":{
+    "/acquisto/{codiceID}": {
       "get": {
-        "tags": [
-          "Acquisto"
-        ],
+        "tags": ["Acquisto"],
         "summary": "Finds purchases by codiceID",
-        "description": "Finds purchases by codiceID",
+        "description": "",
         "parameters": [
           {
             "name": "codiceID",
@@ -692,12 +630,7 @@
       }
     },
     "Utenti": {
-      "required": [
-        "email",
-        "password",
-        "nome",
-        "cognome"
-      ],
+      "required": ["email", "password", "nome", "cognome"],
       "properties": {
         "email": {
           "type": "string"
