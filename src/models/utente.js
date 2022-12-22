@@ -1,10 +1,21 @@
 const { default: mongoose } = require("mongoose");
 
 const utenteSchema = new mongoose.Schema({
-  email: String,
-  password: String,
-  nome: String,
-  cognome: String,
+  email: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  nome: {
+    type: String,
+  },
+  cognome: {
+    type: String,
+  },
 });
 
 const Utente = mongoose.model("Utente", utenteSchema);

@@ -1,6 +1,6 @@
 const Feedback = require("../models/feedback");
-const Acquisto = require("../models/acquisto");
 const Meal = require("../models/meal");
+const Acquisto = require("../models/acquisto");
 const Utils = require("../utils");
 
 const getAllFeedback = (req, res, next) => {
@@ -31,7 +31,17 @@ const newFeedback = (req, res, next) => {
     feedback.hasOwnProperty("puntiDiForza") &&
     feedback.hasOwnProperty("commento")
   ) {
-    Acquisto.findAll({ acquirente: feedback.utente }, (err, data) => {
+    Acquisto.aggregate([{
+      $lookup: {
+          from: "meals", // collection name in db
+          localField: "meal",
+          foreignField: "codiceID",
+          as: "AcquistoConMeal"
+      }
+  }]).exec(function(err, data) {
+      console.log(data);
+  });
+    Acquisto.find({ acquirente: feedback.utente }, (err, data) => {
       if (data) {
         //Controlliamo se i meal di questi acquisti fanno parte del fornitore del feedback
         console.log(data);

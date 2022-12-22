@@ -30,6 +30,22 @@ const newAcquisto = (req, res, next) => {
     acquisto.hasOwnProperty("borsa") &&
     acquisto.hasOwnProperty("stato")
   ) {
+    Acquisto.aggregate([
+      {
+        $lookup: {
+          from: "meals",
+          localField: "meal",
+          foreignField: "_id",
+          as: "mealData",
+        },
+      },
+    ]).exec(function (err, data) {
+      console.log(data);
+      res.json(data);
+      console.log(data.mealData);
+      res.json(data.MealData);
+    });
+    /*
     //check if the meal ID already exists in db
     Acquisto.findOne({ meal: acquisto.meal }, (err, data) => {
       //if acquisto not in db, add it
@@ -55,7 +71,7 @@ const newAcquisto = (req, res, next) => {
           return res.json(`Something went wrong, please try again. ${err}`);
         return res.json({ message: "purchase already exists" });
       }
-    });
+    });*/
   } else {
     return res.json({ message: "Acquisto object required" });
   }

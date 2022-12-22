@@ -22,37 +22,22 @@ const getAllMeal = (req, res, next) => {
 const newMeal = (req, res, next) => {
   meal = req.body;
   if (
-    meal.hasOwnProperty("codiceID") &&
     meal.hasOwnProperty("fornitore") &&
     meal.hasOwnProperty("prezzo") &&
     meal.hasOwnProperty("dimensione") &&
     meal.hasOwnProperty("disponibilita")
   ) {
-    //check if the meal ID already exists in db
-    Meal.findOne({ codiceID: meal.codiceID }, (err, data) => {
-      //if meal not in db, add it
-
-      if (!data) {
-        //create a new meal object using the meal model and req.body
-        const nuovoMeal = new Meal({
-          codiceID: meal.codiceID,
-          fornitore: meal.fornitore,
-          prezzo: meal.prezzo,
-          dimensione: meal.dimensione,
-          disponibilita: meal.disponibilita,
-        });
-        // save this object to database
-        nuovoMeal.save((err, data) => {
-          if (err) return res.json({ Error: err });
-          return res.json(data);
-        });
-        //if there's an error or the meal is in db, return a message
-      } else {
-        if (err) {
-          return res.json(`Something went wrong, please try again. ${err}`);
-        }
-        return res.json({ message: "Meal already exists" });
-      }
+    //create a new meal object using the meal model and req.body
+    const nuovoMeal = new Meal({
+      fornitore: meal.fornitore,
+      prezzo: meal.prezzo,
+      dimensione: meal.dimensione,
+      disponibilita: meal.disponibilita,
+    });
+    // save this object to database
+    nuovoMeal.save((err, data) => {
+      if (err) return res.json({ Error: err });
+      return res.json(data);
     });
   } else {
     return res.json({ message: "Meal object required" });
@@ -69,9 +54,9 @@ const deleteAllMeal = (req, res, next) => {
 };
 //GET '/meal/:codice'
 const getOneMeal = (req, res, next) => {
-  codiceID = req.params["codiceID"]; //get the meal ID
+  id = req.params["id"]; //get the meal ID
   //find the specific meal with that ID
-  Meal.findOne({ codiceID: codiceID }, (err, data) => {
+  Meal.findOne({ _id: id }, (err, data) => {
     if (err || !data) {
       return res.json({ message: "Meal doesn't exist." });
     } else return res.json(data); //return the meal object if found
@@ -79,12 +64,12 @@ const getOneMeal = (req, res, next) => {
 };
 //DELETE '/meal/:codice'
 const deleteOneMeal = (req, res, next) => {
-  codiceID = req.params["codiceID"];
-  Meal.findOne({ codiceID: codiceID }, (err, data) => {
+  id = req.params["id"];
+  Meal.findOne({ _id: id }, (err, data) => {
     if (err || !data) {
       return res.json({ message: "Meal doesn't exist." });
     } else
-      Meal.deleteOne({ codiceID: codiceID }, (err) => {
+      Meal.deleteOne({ _id: id }, (err) => {
         if (err) {
           return res.json({ message: "Complete delete failed" });
         }

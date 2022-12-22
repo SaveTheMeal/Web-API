@@ -14,11 +14,11 @@ const getAllFornitore = (req, res, next) => {
 const newFornitore = (req, res, next) => {
   fornitore = req.body;
   if (
+    fornitore.hasOwnProperty("email") &&
+    fornitore.hasOwnProperty("password") &&
     fornitore.hasOwnProperty("nomeAttivita") &&
     fornitore.hasOwnProperty("indirizzoNegozio") &&
     fornitore.hasOwnProperty("tipologiaAlimenti") &&
-    fornitore.hasOwnProperty("email") &&
-    fornitore.hasOwnProperty("password") &&
     fornitore.hasOwnProperty("IBAN")
   ) {
     if (
@@ -44,11 +44,11 @@ const newFornitore = (req, res, next) => {
           if (!data) {
             //create a new fornitore object using the fornitore model and req.body
             const nuovoFornitore = new Fornitore({
+              email: fornitore.email,
+              password: fornitore.password,
               nomeAttivita: fornitore.nomeAttivita,
               indirizzoNegozio: fornitore.indirizzoNegozio,
               tipologiaAlimenti: fornitore.tipologiaAlimenti,
-              email: fornitore.email,
-              password: fornitore.password,
               IBAN: fornitore.IBAN,
             });
             // save this object to database
@@ -80,9 +80,9 @@ const deleteAllFornitore = (req, res, next) => {
 };
 //GET '/fornitore/:email'
 const getOneFornitore = (req, res, next) => {
-  email = req.params["email"]; //get the fornitore email
+  id = req.params["id"]; //get the fornitore email
   //find the specific fornitore with that email
-  Fornitore.findOne({ email: email }, (err, data) => {
+  Fornitore.findOne({ _id: id }, (err, data) => {
     if (err || !data) {
       return res.json({ message: "Fornitore doesn't exist." });
     } else return res.json(data); //return the fornitore object if found
@@ -90,12 +90,12 @@ const getOneFornitore = (req, res, next) => {
 };
 //DELETE '/fornitore/:email'
 const deleteOneFornitore = (req, res, next) => {
-  email = req.params["email"];
-  Fornitore.findOne({ email: email }, (err, data) => {
+  id = req.params["id"];
+  Fornitore.findOne({ _id: id }, (err, data) => {
     if (err || !data) {
       return res.json({ message: "Fornitore doesn't exist." });
     } else
-      Fornitore.deleteOne({ email: email }, (err) => {
+      Fornitore.deleteOne({ _id: id }, (err) => {
         if (err) {
           return res.json({ message: "Complete delete failed" });
         }

@@ -7,50 +7,59 @@ const Utils = require("../utils");
 // --------------------------------------------------------
 //GET '/utente'
 const login = async function (req, res, next) {
-  // find the user
-  let user = await Utente.findOne({
-    email: req.body.email,
-  }).exec();
+  utente = req.body;
+  if (
+    meal.hasOwnProperty("email") &&
+    meal.hasOwnProperty("password")
+  ) {
+    // find the user
+    let user = await Utente.findOne({
+      email: utente.email,
+    }).exec();
 
-  // user not found
-  if (!user) {
-    console.log("UTENTE NON TROVATO");
+    // user not found
+    if (!user) {
+      console.log("UTENTE NON TROVATO");
+      res.json({
+        success: false,
+        message: "Authentication failed. User not found.",
+      });
+    }
+
+    // check if password matches
+    if (user.password != utente.password) {
+      res.json({
+        success: false,
+        message: "Authentication failed. Wrong password.",
+      });
+    }
+
+    // if user is found and password is right create a token
+    var payload = {
+      email: user.email,
+      nome: user.nome,
+      cognome: user.cognome,
+      // other data encrypted in the token
+    };
+    var options = {
+      expiresIn: 86400, // expires in 24 hours
+    };
+    var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
+
     res.json({
-      success: false,
-      message: "Authentication failed. User not found.",
+      success: true,
+      message: "Enjoy your token!",
+      token: token,
+      email: user.email,
+      nome: user.nome,
+      cognome: user.cognome,
+      //self: "api/v1/" + user._id
     });
+  } else {
+    return res.json({ message: "Utente object required" });
   }
-
-  // check if password matches
-  if (user.password != req.body.password) {
-    res.json({
-      success: false,
-      message: "Authentication failed. Wrong password.",
-    });
-  }
-
-  // if user is found and password is right create a token
-  var payload = {
-    email: user.email,
-    nome: user.nome,
-    cognome: user.cognome,
-    // other data encrypted in the token
-  };
-  var options = {
-    expiresIn: 86400, // expires in 24 hours
-  };
-  var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
-
-  res.json({
-    success: true,
-    message: "Enjoy your token!",
-    token: token,
-    email: user.email,
-    nome: user.nome,
-    cognome: user.cognome,
-    //self: "api/v1/" + user._id
-  });
 };
+
 const newUtente = (req, res, next) => {
   utente = req.body;
   if (
@@ -63,12 +72,9 @@ const newUtente = (req, res, next) => {
       typeof utente.email != "string" ||
       !Utils.checkIfEmailInString(utente.email)
     ) {
-      res
-        .status(400)
-        .json({
-          error:
-            'The field "email" must be a non-empty string, in email format',
-        });
+      res.status(400).json({
+        error: 'The field "email" must be a non-empty string, in email format',
+      });
       return;
     }
     //check if the Utente name already exists in db

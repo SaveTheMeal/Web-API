@@ -61,9 +61,6 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       },
@@ -91,9 +88,6 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Invalid input"
           }
         }
       },
@@ -111,9 +105,6 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       }
@@ -121,16 +112,16 @@
     "/meal/{codiceID}": {
       "get": {
         "tags": ["Meal"],
-        "summary": "Finds Meals by codiceID",
+        "summary": "Finds Meals by id",
         "description": "",
         "parameters": [
           {
-            "name": "codiceID",
+            "name": "id",
             "in": "path",
-            "description": "Meal ID",
+            "description": "Meal id",
             "required": true,
             "schema": {
-              "tipe": "integer"
+              "tipe": "string"
             }
           }
         ],
@@ -144,24 +135,21 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Invalid codiceID value"
           }
         }
       },
       "delete": {
         "tags": ["Meal"],
-        "summary": "Finds and delete Meals by codiceID",
+        "summary": "Finds and delete Meals by id",
         "description": "",
         "parameters": [
           {
-            "name": "codiceID",
+            "name": "id",
             "in": "path",
-            "description": "Meal ID",
+            "description": "Meal id",
             "required": true,
             "schema": {
-              "tipe": "integer"
+              "tipe": "string"
             }
           }
         ],
@@ -175,9 +163,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Invalid codiceID value"
           }
         }
       }
@@ -197,9 +182,6 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       },
@@ -228,9 +210,6 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Invalid input"
           }
         }
       },
@@ -248,23 +227,20 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       }
     },
-    "/fornitore/{email}": {
+    "/fornitore/{id}": {
       "get": {
         "tags": ["Fornitore"],
-        "summary": "Finds suppliers by email",
+        "summary": "Finds suppliers by id",
         "description": "",
         "parameters": [
           {
-            "name": "email",
+            "name": "id",
             "in": "path",
-            "description": "email",
+            "description": "fornitore id",
             "required": true,
             "schema": {
               "tipe": "string"
@@ -281,21 +257,18 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Invalid email value"
           }
         }
       },
       "delete": {
         "tags": ["Fornitore"],
-        "summary": "Finds and delete suppliers by email",
+        "summary": "Finds and delete suppliers by id",
         "description": "",
         "parameters": [
           {
-            "name": "email",
+            "name": "id",
             "in": "path",
-            "description": "email",
+            "description": "fornitore id",
             "required": true,
             "schema": {
               "tipe": "string"
@@ -312,9 +285,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Invalid email value"
           }
         }
       }
@@ -334,9 +304,6 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       },
@@ -347,7 +314,7 @@
         "parameters": [
           {
             "name": "Utente",
-            "description": "user objets",
+            "description": "user object",
             "in": "body",
             "required": true,
             "schema": {
@@ -365,9 +332,6 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Invalid input"
           }
         }
       }
@@ -387,9 +351,6 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       },
@@ -400,7 +361,7 @@
         "parameters": [
           {
             "name": "Feedback",
-            "description": "feedback objets",
+            "description": "feedback object",
             "in": "body",
             "required": true,
             "schema": {
@@ -418,9 +379,6 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Invalid input"
           }
         }
       }
@@ -440,9 +398,6 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       },
@@ -453,7 +408,7 @@
         "parameters": [
           {
             "name": "Aquisto",
-            "description": "purchase objets",
+            "description": "purchase object",
             "in": "body",
             "required": true,
             "schema": {
@@ -471,23 +426,20 @@
                 }
               }
             }
-          },
-          "405": {
-            "description": "Invalid input"
           }
         }
       }
     },
-    "/acquisto/{codiceID}": {
+    "/acquisto/{id}": {
       "get": {
         "tags": ["Acquisto"],
-        "summary": "Finds purchases by codiceID",
+        "summary": "Finds purchases by id",
         "description": "",
         "parameters": [
           {
-            "name": "codiceID",
+            "name": "id",
             "in": "path",
-            "description": "ID dell'acquisto",
+            "description": "purchase id",
             "required": true,
             "schema": {
               "tipe": "string"
@@ -504,9 +456,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Invalid codiceID value"
           }
         }
       }
@@ -515,16 +464,12 @@
   "definitions": {
     "Meals": {
       "required": [
-        "codiceID",
         "fornitore",
         "prezzo",
         "dimensione",
         "disponibilita"
       ],
       "properties": {
-        "codiceID": {
-          "type": "number"
-        },
         "fornitore": {
           "type": "string"
         },
@@ -541,14 +486,21 @@
     },
     "Fornitori": {
       "required": [
+        "email",
+        "password",
         "nomeAttivita",
         "indirizzoNegozio",
         "tipologiaAlimenti",
-        "email",
-        "password",
-        "IBAN"
+        "IBAN",
+        "immagine"
       ],
       "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
         "nomeAttivita": {
           "type": "string"
         },
@@ -558,13 +510,10 @@
         "tipologiaAlimenti": {
           "type": "string"
         },
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
         "IBAN": {
+          "type": "string"
+        },
+        "immagine": {
           "type": "string"
         }
       }
