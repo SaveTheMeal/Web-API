@@ -55,7 +55,7 @@ const newMeal = (req, res, next) => {
       }
     });
   } else {
-    return res.json({ message: "The parameters are incorrect" });
+    return res.json({ message: "Meal object required" });
   }
 };
 //DELETE '/meal'
