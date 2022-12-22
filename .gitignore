@@ -1,2 +1,7 @@
+#Escludiamo i moduli node che tanto verranno comunque reinstallati con il comando npm install
 /node_modules
+
+#Escludiamo il file dove abbiamo variabili e dati privati
 .env
+
+.DS_Store
