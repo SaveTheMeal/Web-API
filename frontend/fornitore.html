@@ -1,0 +1,34 @@
+<head>
+</head>
+
+<body>
+
+  <h1>Fornitore</h1>
+
+  <form action="api/v1/students" method="post" name="loginform" id="loginform">
+    <span>Logged User:</span>
+    <span id="loggedUser"></span>
+    <input name="email" value="test@gmail.com" id="loginEmail" />
+    <input name="email" value="1234#" id="loginPassword" />
+    <button type="button" onclick="login()">LogIn</button>
+  </form>
+
+  <h2>Meals:</h2>
+  <ul id="meals"></ul>
+
+  <h2>Inserisci nuovo meal:</h2>
+
+  <form action="api/v1/books" method="post" name="mealform" id="mealform">
+    <input name="prezzo" value="prezzo" id="prezzoMeal" />
+    <input name="dimensione" value="dimensione" id="dimensioneMeal" />
+    <button type="button" onclick="insertMeal()">Inserisci nuovo meal</button>
+  </form>
+
+  <h2>Lendings:</h2>
+  <ul id="bookLendings"></ul>
+  <script src="variables.js"></script>
+  <script src="fornitore.js"></script>
+
+</body>
+
+</html>
