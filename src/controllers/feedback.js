@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Feedback = require("../models/feedback");
 const Meal = require("../models/meal");
 const Acquisto = require("../models/acquisto");
@@ -31,26 +32,86 @@ const newFeedback = (req, res, next) => {
     feedback.hasOwnProperty("puntiDiForza") &&
     feedback.hasOwnProperty("commento")
   ) {
-    Acquisto.aggregate([{
-      $lookup: {
-          from: "meals", // collection name in db
+    Acquisto.aggregate([
+      {
+        $lookup: {
+          from: "meals",
           localField: "meal",
-          foreignField: "codiceID",
-          as: "AcquistoConMeal"
+          foreignField: "_id",
+          as: "mealData",
+        },
+      },
+      {
+        $unwind: {
+          path: "$mealData",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      { $match:{
+        $and: [
+          { acquirente: mongoose.Types.ObjectId(feedback.utente) },
+          { 'mealData.fornitore': mongoose.Types.ObjectId(feedback.fornitore) }
+        ]
+      }  },
+    ]).exec(function (err, data) {
+      if (data.length>0){
+        Feedback.findOne({ utente: feedback.utente, fornitore: feedback.fornitore }, (err, data) => {
+          if (!data) {
+            const newFeedback = new Feedback({
+              fornitore: feedback.fornitore,
+              utente: feedback.utente,
+              valutazione: feedback.valutazione,
+              puntiDiForza: feedback.puntiDiForza,
+              commento: feedback.commento,
+            });
+            newFeedback.save((err, data) => {
+              if (err) return res.json({ Error: err });
+              return res.json(data);
+            });
+          } else {
+            if (err)
+              return res.json(`Something went wrong, please try again. ${err}`);
+            return res.json({ message: "You've already make a feedback for this store" });
+          }
+        });
+      }else{
+        return res.json({ message: "You can't make a feedback before buying from the store" });
       }
-  }]).exec(function(err, data) {
-      console.log(data);
-  });
-    Acquisto.find({ acquirente: feedback.utente }, (err, data) => {
-      if (data) {
-        //Controlliamo se i meal di questi acquisti fanno parte del fornitore del feedback
-        console.log(data);
+      /*
+      disponibile = true;
+      for (let i = 0; i < data.length; i++) {
+        let meal = data[i];
+        if (
+          meal.disponibilita == false ||
+          (meal.hasOwnProperty("acquisto") &&
+            meal.acquisto.stato != "rifiutato")
+        ) {
+          disponibile = false;
+        }
+      }
+      if (disponibile) {
+        //create a new acquisto object using the acquisto model and req.body
+        const newAcquisto = new Acquisto({
+          meal: acquisto.meal,
+          acquirente: acquisto.acquirente,
+          presenzaIntolleranze: acquisto.presenzaIntolleranze,
+          intolleranze: acquisto.intolleranze,
+          isPaid: acquisto.isPaid,
+          borsa: acquisto.borsa,
+          stato: acquisto.stato,
+        });
+        // save this object to database
+        newAcquisto.save((err, data) => {
+          if (err) return res.json({ Error: err });
+          return res.json(data);
+        });
+        
       } else {
-        if (err)
-          return res.json(`Something went wrong, please try again. ${err}`);
-        return res.json({ message: "L'utente non ha fatto acquisti" });
-      }
+        return res.json({ message: "The meal isn't available" });
+      }*/
     });
+
+    
     //bisogna controllare se l'utente ha fatto acquisti verso quel fornitore e se non esiste già un feedback
     /*Feedback.findOne({ acquistoID: req.body.acquistoID }, (err, data) => {
       if (data) {

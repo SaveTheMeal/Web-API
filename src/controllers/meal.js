@@ -1,4 +1,5 @@
 const Meal = require("../models/meal");
+const Fornitore = require("../models/fornitore");
 
 //GET '/meal'
 const getAllMeal = (req, res, next) => {
@@ -27,17 +28,26 @@ const newMeal = (req, res, next) => {
     meal.hasOwnProperty("dimensione") &&
     meal.hasOwnProperty("disponibilita")
   ) {
-    //create a new meal object using the meal model and req.body
-    const nuovoMeal = new Meal({
-      fornitore: meal.fornitore,
-      prezzo: meal.prezzo,
-      dimensione: meal.dimensione,
-      disponibilita: meal.disponibilita,
-    });
-    // save this object to database
-    nuovoMeal.save((err, data) => {
-      if (err) return res.json({ Error: err });
-      return res.json(data);
+    Fornitore.findOne({ _id: meal.fornitore }, (err, data) => {
+      if (data) {
+        //create a new fornitore object using the fornitore model and req.body
+        //create a new meal object using the meal model and req.body
+        const nuovoMeal = new Meal({
+          fornitore: meal.fornitore,
+          prezzo: meal.prezzo,
+          dimensione: meal.dimensione,
+          disponibilita: meal.disponibilita,
+        });
+        // save this object to database
+        nuovoMeal.save((err, data) => {
+          if (err) return res.json({ Error: err });
+          return res.json(data);
+        });
+      } else {
+        if (err)
+          return res.json(`Something went wrong, please try again. ${err}`);
+        return res.json({ message: "The fornitore doesn't exists" });
+      }
     });
   } else {
     return res.json({ message: "Meal object required" });

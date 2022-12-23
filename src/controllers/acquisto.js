@@ -1,4 +1,7 @@
+const { default: mongoose } = require("mongoose");
 const Acquisto = require("../models/acquisto");
+const Meal = require("../models/meal");
+const Utente = require("../models/utente");
 
 const getAllAcquisto = (req, res, next) => {
   if (req.query.hasOwnProperty("utente")) {
@@ -30,48 +33,74 @@ const newAcquisto = (req, res, next) => {
     acquisto.hasOwnProperty("borsa") &&
     acquisto.hasOwnProperty("stato")
   ) {
-    Acquisto.aggregate([
+    Meal.aggregate([
       {
         $lookup: {
-          from: "meals",
-          localField: "meal",
-          foreignField: "_id",
-          as: "mealData",
+          from: "acquistos",
+          localField: "_id",
+          foreignField: "meal",
+          as: "acquisto",
         },
       },
+      {
+        $unwind: {
+          path: "$acquisto",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      { $match: { _id: mongoose.Types.ObjectId(acquisto.meal) } },
     ]).exec(function (err, data) {
-      console.log(data);
-      res.json(data);
-      console.log(data.mealData);
-      res.json(data.MealData);
-    });
-    /*
-    //check if the meal ID already exists in db
-    Acquisto.findOne({ meal: acquisto.meal }, (err, data) => {
-      //if acquisto not in db, add it
-      if (!data) {
-        //create a new acquisto object using the acquisto model and req.body
-        const newAcquisto = new Acquisto({
-          meal: acquisto.meal,
-          acquirente: acquisto.acquirente,
-          presenzaIntolleranze: acquisto.presenzaIntolleranze,
-          intolleranze: acquisto.intolleranze,
-          isPaid: acquisto.isPaid,
-          borsa: acquisto.borsa,
-          stato: acquisto.stato,
-        });
-        // save this object to database
-        newAcquisto.save((err, data) => {
-          if (err) return res.json({ Error: err });
-          return res.json(data);
-        });
-        //if there's an error or the meal is in db, return a message
-      } else {
-        if (err)
-          return res.json(`Something went wrong, please try again. ${err}`);
-        return res.json({ message: "purchase already exists" });
+      disponibile = true;
+      for (let i = 0; i < data.length; i++) {
+        let meal = data[i];
+        if (
+          meal.disponibilita == false ||
+          (meal.hasOwnProperty("acquisto") &&
+            meal.acquisto.stato != "rifiutato")
+        ) {
+          disponibile = false;
+        }
       }
-    });*/
+      if (disponibile && data.length > 0) {
+        Utente.findOne({ _id: acquisto.acquirente }, (err, data) => {
+          if (data) {
+            //create a new acquisto object using the acquisto model and req.body
+            const newAcquisto = new Acquisto({
+              meal: acquisto.meal,
+              acquirente: acquisto.acquirente,
+              presenzaIntolleranze: acquisto.presenzaIntolleranze,
+              intolleranze: acquisto.intolleranze,
+              isPaid: acquisto.isPaid,
+              borsa: acquisto.borsa,
+              stato: acquisto.stato,
+            });
+            // save this object to database
+            newAcquisto.save((err, data) => {
+              if (err) {
+                return res.json({ Error: err });
+              } else {
+                Meal.findOneAndUpdate(
+                  { _id: acquisto.meal },
+                  { disponibilita: false },
+                  { upsert: true },
+                  function (err, doc) {
+                    if (err) return res.send(500, { error: err });
+
+                    return res.json(data);
+                  }
+                );
+              }
+            });
+          } else {
+            if (err)
+              return res.json(`Something went wrong, please try again. ${err}`);
+            return res.json({ message: "The user doesn't exists" });
+          }
+        });
+      } else {
+        return res.json({ message: "The meal isn't available" });
+      }
+    });
   } else {
     return res.json({ message: "Acquisto object required" });
   }
