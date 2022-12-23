@@ -16,23 +16,23 @@
   "tags": [
     {
       "name": "Meal",
-      "description": "API for meals in the system"
+      "description": "API to manage the meals in the system"
     },
     {
       "name": "Fornitore",
-      "description": "API for suppliers in the system"
+      "description": "API to manage the suppliers in the system"
     },
     {
       "name": "Utente",
-      "description": "Operations about user"
+      "description": "API to manage the users in the system"
     },
     {
       "name": "Feedback",
-      "description": "Operations about feedbacks"
+      "description": "API to manage the feedbacks in the system"
     },
     {
       "name": "Acquisto",
-      "description": "Operations about purchase"
+      "description": "API to manage the purchases in the system"
     }
   ],
   "schemes": ["http"],
@@ -42,8 +42,8 @@
     "/meal": {
       "get": {
         "tags": ["Meal"],
-        "summary": "Get all meals in system, or all meals filtered by a supplier",
-        "description": "",
+        "summary": "Get all the meals in the system, or (if specified) the meals of a specific supplier",
+        "description": "This API will return an array of all the meals in the system. In the case that a supplier is specified, this API will return an array of all the meals sell by that supplier",
         "parameters": [
           {
             "name": "fornitore",
@@ -66,7 +66,8 @@
       },
       "post": {
         "tags": ["Meal"],
-        "summary": "Add a new meal to the store",
+        "summary": "Add a new meal for a specific supplier",
+        "description": "This API will add a new meal of a specific supplier in the system.",
         "parameters": [
           {
             "name": "Meal",
@@ -93,8 +94,8 @@
       },
       "delete": {
         "tags": ["Meal"],
-        "summary": "Delete all meals in system",
-        "description": "",
+        "summary": "Delete all the meals in system",
+        "description": "This API will delete all the meals in the system.",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -109,11 +110,11 @@
         }
       }
     },
-    "/meal/{codiceID}": {
+    "/meal/{id}": {
       "get": {
         "tags": ["Meal"],
-        "summary": "Finds Meals by id",
-        "description": "",
+        "summary": "Find meal by id",
+        "description": "This API will return the meal in the system that has the id specified",
         "parameters": [
           {
             "name": "id",
@@ -140,8 +141,8 @@
       },
       "delete": {
         "tags": ["Meal"],
-        "summary": "Finds and delete Meals by id",
-        "description": "",
+        "summary": "Delete meal by id",
+        "description": "This API will delete by the system the meal that has the id specified",
         "parameters": [
           {
             "name": "id",
@@ -170,8 +171,8 @@
     "/fornitore": {
       "get": {
         "tags": ["Fornitore"],
-        "summary": "Get all suppliers in  the system",
-        "description": "",
+        "summary": "Get all the suppliers in the system",
+        "description": "This API will return an array of all the suppliers in the system.",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -187,12 +188,12 @@
       },
       "post": {
         "tags": ["Fornitore"],
-        "summary": "Add a new supplier in the system",
-        "description": "",
+        "summary": "Add a new supplier",
+        "description": "This API will add a new supplier in the system.",
         "parameters": [
           {
             "name": "Fornitore",
-            "description": "fornitore objets",
+            "description": "fornitore object",
             "in": "body",
             "required": true,
             "schema": {
@@ -215,8 +216,8 @@
       },
       "delete": {
         "tags": ["Fornitore"],
-        "summary": "Delete all suppliers in  the system",
-        "description": "",
+        "summary": "Delete all the suppliers in system",
+        "description": "This API will delete all the suppliers in the system.",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -234,8 +235,8 @@
     "/fornitore/{id}": {
       "get": {
         "tags": ["Fornitore"],
-        "summary": "Finds suppliers by id",
-        "description": "",
+        "summary": "Find supplier by id",
+        "description": "This API will return the supplier in the system that has the id specified",
         "parameters": [
           {
             "name": "id",
@@ -262,8 +263,8 @@
       },
       "delete": {
         "tags": ["Fornitore"],
-        "summary": "Finds and delete suppliers by id",
-        "description": "",
+        "summary": "Delete supplier by id",
+        "description": "This API will delete by the system the supplier that has the id specified",
         "parameters": [
           {
             "name": "id",
@@ -292,8 +293,8 @@
     "/utente": {
       "get": {
         "tags": ["Utente"],
-        "summary": "Get all users in  the system",
-        "description": "",
+        "summary": "Get all the users in the system",
+        "description": "This API will return an array of all the users in the system.",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -309,8 +310,8 @@
       },
       "post": {
         "tags": ["Utente"],
-        "summary": "Add a new user in the system",
-        "description": "",
+        "summary": "Add a new user",
+        "description": "This API will add a new user in the system.",
         "parameters": [
           {
             "name": "Utente",
@@ -339,15 +340,22 @@
     "/feedback": {
       "get": {
         "tags": ["Feedback"],
-        "summary": "Get all feedbacks in  the system",
-        "description": "",
+        "summary": "Get all the feedbacks in the system, or (if specified) the feedbacks of a specific supplier",
+        "description": "This API will return an array of all the feedbacks in the system. In the case that a supplier is specified, this API will return an array of all the feedbacks made on that supplier",
+        "parameters": [
+          {
+            "name": "fornitore",
+            "in": "query",
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/Feedback"
+                  "$ref": "#/definitions/Feedbacks"
                 }
               }
             }
@@ -356,8 +364,8 @@
       },
       "post": {
         "tags": ["Feedback"],
-        "summary": "Add a new feedback in the system",
-        "description": "",
+        "summary": "Add a new feedback",
+        "description": "This API will add a new feedback in the system.",
         "parameters": [
           {
             "name": "Feedback",
@@ -386,8 +394,15 @@
     "/acquisto": {
       "get": {
         "tags": ["Acquisto"],
-        "summary": "Get all purchases in  the system",
-        "description": "",
+        "summary": "Get all the purchases in the system, or (if specified) the purchases of a specific user",
+        "description": "This API will return an array of all the purchases in the system. In the case that a user is specified, this API will return an array of all the purchases made by that user",
+        "parameters": [
+          {
+            "name": "utente",
+            "in": "query",
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -403,8 +418,8 @@
       },
       "post": {
         "tags": ["Acquisto"],
-        "summary": "Add a new purchase in the system",
-        "description": "",
+        "summary": "Add a new purchase",
+        "description": "This API will add a new purchase in the system.",
         "parameters": [
           {
             "name": "Aquisto",
@@ -433,8 +448,8 @@
     "/acquisto/{id}": {
       "get": {
         "tags": ["Acquisto"],
-        "summary": "Finds purchases by id",
-        "description": "",
+        "summary": "Find purchase by id",
+        "description": "This API will return the purchase in the system that has the id specified",
         "parameters": [
           {
             "name": "id",
@@ -463,24 +478,24 @@
   },
   "definitions": {
     "Meals": {
-      "required": [
-        "fornitore",
-        "prezzo",
-        "dimensione",
-        "disponibilita"
-      ],
+      "required": ["fornitore", "prezzo", "dimensione", "disponibilita"],
       "properties": {
         "fornitore": {
-          "type": "string"
+          "type": "string",
+          "minLength": "24",
+          "maxLength": "24",
+          "default": "00a00000000aa0aaaa000aaa"
         },
         "prezzo": {
           "type": "number"
         },
         "dimensione": {
-          "type": "string"
+          "type": "string",
+          "enum": ["piccolo", "medio", "grande"]
         },
         "disponibilita": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": "true"
         }
       }
     },
@@ -496,7 +511,8 @@
       ],
       "properties": {
         "email": {
-          "type": "string"
+          "type": "string",
+          "default": "email@email.com"
         },
         "password": {
           "type": "string"
@@ -528,19 +544,29 @@
       ],
       "properties": {
         "fornitore": {
-          "type": "string"
+          "type": "string",
+          "minLength": "24",
+          "maxLength": "24",
+          "default": "00a00000000aa0aaaa000aaa"
         },
         "utente": {
-          "type": "string"
+          "type": "string",
+          "minLength": "24",
+          "maxLength": "24",
+          "default": "00a00000000aa0aaaa000aaa"
         },
         "valutazione": {
-          "type": "number"
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5
         },
         "puntiDiForza": {
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         "commento": {
-          "type": "string"
+          "type": "string",
+          "default": ""
         }
       }
     },
@@ -556,25 +582,36 @@
       ],
       "properties": {
         "meal": {
-          "type": "string"
+          "type": "string",
+          "minLength": "24",
+          "maxLength": "24",
+          "default": "00a00000000aa0aaaa000aaa"
         },
         "acquirente": {
-          "type": "string"
+          "type": "string",
+          "minLength": "24",
+          "maxLength": "24",
+          "default": "00a00000000aa0aaaa000aaa"
         },
         "presenzaIntolleranze": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": "false"
         },
         "intolleranze": {
-          "type": "string"
+          "type": "string",
+          "default": ""
         },
         "isPaid": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": "false"
         },
         "borsa": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": "false"
         },
         "stato": {
-          "type": "string"
+          "type": "string",
+          "default": "accettato"
         }
       }
     },
@@ -582,7 +619,8 @@
       "required": ["email", "password", "nome", "cognome"],
       "properties": {
         "email": {
-          "type": "string"
+          "type": "string",
+          "default": "email@email.com"
         },
         "password": {
           "type": "string"

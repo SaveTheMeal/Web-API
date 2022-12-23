@@ -8,7 +8,7 @@ const getAllFeedback = (req, res, next) => {
   if (req.query.hasOwnProperty("fornitore")) {
     fornitore = req.query.fornitore;
     Feedback.find({ fornitore: fornitore }, (err, data) => {
-      if (err || !data) {
+      if (err || !data || data.length==0) {
         return res.json({
           message: "Feedbacks don't exist from this supplier.",
         });

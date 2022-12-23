@@ -7,9 +7,9 @@ const getAllAcquisto = (req, res, next) => {
   if (req.query.hasOwnProperty("utente")) {
     utente = req.query.utente;
     Acquisto.find({ utente: utente }, (err, data) => {
-      if (err || !data) {
+      if (err || !data || data.length==0) {
         return res.json({
-          message: "Purchase don't exist from this user.",
+          message: "Purchases don't exist from this user.",
         });
       } else return res.json(data); //return the meal object if found
     });

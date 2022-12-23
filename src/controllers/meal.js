@@ -6,7 +6,7 @@ const getAllMeal = (req, res, next) => {
   if (req.query.hasOwnProperty("fornitore")) {
     fornitore = req.query.fornitore;
     Meal.find({ fornitore: fornitore }, (err, data) => {
-      if (err || !data) {
+      if (err || !data || data.length==0) {
         return res.json({ message: "Meals don't exist from this supplier." });
       } else return res.json(data); //return the meal object if found
     });
