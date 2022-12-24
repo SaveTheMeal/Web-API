@@ -6,10 +6,16 @@ const app = express();
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 
+app.use(express.urlencoded({ extended: true }));
+app.use('/', express.static('static'));
+/**
+ * CORS requests
+ */
+app.use(cors());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //establish connection to database
-mongoose.set('strictQuery', false);
+mongoose.set("strictQuery", false);
 mongoose.connect(
   process.env.MONGO_URI,
   { useNewUrlParser: true, useUnifiedTopology: true },
@@ -33,6 +39,11 @@ app.use("/", routes2);
 app.use("/", routes3);
 app.use("/", routes4);
 app.use("/", routes5);
+
+app.use((req, res) => {
+  res.status(404);
+  res.json({ error: 'Not found' });
+});
 
 const listener = app.listen(3000, () => {
   console.log("Your app is listening on port " + listener.address().port);
