@@ -11,7 +11,7 @@ app.use('/', express.static('static'));
 /**
  * CORS requests
  */
-app.use(cors());
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //establish connection to database
@@ -39,6 +39,8 @@ app.use("/", routes2);
 app.use("/", routes3);
 app.use("/", routes4);
 app.use("/", routes5);
+
+app.use(express.static('frontend'))
 
 app.use((req, res) => {
   res.status(404);

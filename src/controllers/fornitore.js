@@ -1,11 +1,12 @@
 const Fornitore = require("../models/fornitore");
 const Utils = require("../utils");
+const jwt = require("jsonwebtoken"); 
 
 const login = async function (req, res, next) {
   utente = req.body;
   if (
-    meal.hasOwnProperty("email") &&
-    meal.hasOwnProperty("password")
+    utente.hasOwnProperty("email") &&
+    utente.hasOwnProperty("password")
   ) {
     // find the user
     let user = await Fornitore.findOne({
@@ -163,4 +164,5 @@ module.exports = {
   deleteAllFornitore,
   getOneFornitore,
   deleteOneFornitore,
+  login
 }; //per poterlo utilizzare in altri file

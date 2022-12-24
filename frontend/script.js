@@ -15,7 +15,7 @@ function login() {
     var password = document.getElementById("loginPassword").value;
 
 
-    fetch('../api/v1/authentications', {
+    fetch('../fornitore/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email, password: password }),
@@ -26,10 +26,9 @@ function login() {
             loggedUser.token = data.token;
             loggedUser.email = data.email;
             loggedUser.id = data.id;
-            loggedUser.self = data.self;
             // loggedUser.id = loggedUser.self.substring(loggedUser.self.lastIndexOf('/') + 1);
             document.getElementById("loggedUser").textContent = loggedUser.email;
-            loadLendings();
+            login();
             return;
         })
         .catch(error => console.error(error)); // If there is any error you will catch them here
