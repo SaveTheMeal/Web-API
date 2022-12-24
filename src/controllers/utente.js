@@ -8,10 +8,7 @@ const Utils = require("../utils");
 //GET '/utente'
 const login = async function (req, res, next) {
   utente = req.body;
-  if (
-    meal.hasOwnProperty("email") &&
-    meal.hasOwnProperty("password")
-  ) {
+  if (meal.hasOwnProperty("email") && meal.hasOwnProperty("password")) {
     // find the user
     let user = await Utente.findOne({
       email: utente.email,
@@ -27,34 +24,33 @@ const login = async function (req, res, next) {
     }
 
     // check if password matches
-    if (user.password != utente.password) {
+    else if (user.password != utente.password) {
       res.json({
         success: false,
         message: "Authentication failed. Wrong password.",
       });
+    } else {
+      // if user is found and password is right create a token
+      var payload = {
+        id: user._id,
+        email: user.email,
+        nome: user.nome,
+        cognome: user.cognome,
+        // other data encrypted in the token
+      };
+      var options = {
+        expiresIn: 86400, // expires in 24 hours
+      };
+      var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
+
+      res.json({
+        token: token,
+        email: user.email,
+        nome: user.nome,
+        cognome: user.cognome,
+        //self: "api/v1/" + user._id
+      });
     }
-
-    // if user is found and password is right create a token
-    var payload = {
-      email: user.email,
-      nome: user.nome,
-      cognome: user.cognome,
-      // other data encrypted in the token
-    };
-    var options = {
-      expiresIn: 86400, // expires in 24 hours
-    };
-    var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
-
-    res.json({
-      success: true,
-      message: "Enjoy your token!",
-      token: token,
-      email: user.email,
-      nome: user.nome,
-      cognome: user.cognome,
-      //self: "api/v1/" + user._id
-    });
   } else {
     return res.json({ message: "Utente object required" });
   }

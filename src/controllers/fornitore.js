@@ -1,13 +1,10 @@
 const Fornitore = require("../models/fornitore");
 const Utils = require("../utils");
-const jwt = require("jsonwebtoken"); 
+const jwt = require("jsonwebtoken");
 
 const login = async function (req, res, next) {
   utente = req.body;
-  if (
-    utente.hasOwnProperty("email") &&
-    utente.hasOwnProperty("password")
-  ) {
+  if (utente.hasOwnProperty("email") && utente.hasOwnProperty("password")) {
     // find the user
     let user = await Fornitore.findOne({
       email: utente.email,
@@ -15,42 +12,39 @@ const login = async function (req, res, next) {
 
     // user not found
     if (!user) {
-      console.log("UTENTE NON TROVATO");
       res.json({
         success: false,
         message: "Authentication failed. User not found.",
       });
     }
-
     // check if password matches
-    if (user.password != utente.password) {
+    else if (user.password != utente.password) {
       res.json({
         success: false,
         message: "Authentication failed. Wrong password.",
       });
+    } else {
+      // if user is found and password is right create a token
+      var payload = {
+        email: user.email,
+        nomeAttivita: user.nomeAttivita,
+        indirizzoNegozio: user.indirizzoNegozio,
+        // other data encrypted in the token
+      };
+      var options = {
+        expiresIn: 86400, // expires in 24 hours
+      };
+      var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
+
+      res.json({
+        token: token,
+        id: user._id,
+        email: user.email,
+        nomeAttivita: user.nomeAttivita,
+        indirizzoNegozio: user.indirizzoNegozio,
+        //self: "api/v1/" + user._id
+      });
     }
-
-    // if user is found and password is right create a token
-    var payload = {
-      email: user.email,
-      nomeAttivita: user.nomeAttivita,
-      indirizzoNegozio: user.indirizzoNegozio,
-      // other data encrypted in the token
-    };
-    var options = {
-      expiresIn: 86400, // expires in 24 hours
-    };
-    var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
-
-    res.json({
-      success: true,
-      message: "Enjoy your token!",
-      token: token,
-      email: user.email,
-      nomeAttivita: user.nomeAttivita,
-      indirizzoNegozio: user.indirizzoNegozio,
-      //self: "api/v1/" + user._id
-    });
   } else {
     return res.json({ message: "Fornitore credentials required" });
   }
@@ -164,5 +158,5 @@ module.exports = {
   deleteAllFornitore,
   getOneFornitore,
   deleteOneFornitore,
-  login
+  login,
 }; //per poterlo utilizzare in altri file

@@ -5,16 +5,17 @@
 
   <h1>Fornitore</h1>
 
-  <form action="api/v1/students" method="post" name="loginform" id="loginform">
-    <span>Logged User:</span>
-    <span id="loggedUser"></span>
+  <text id="loggedUser"></text>
+
+  <form action="../meal" method="post" name="loginform" id="loginform">
     <input name="email" value="test@gmail.com" id="loginEmail" />
-    <input name="email" value="1234#" id="loginPassword" />
+    <input name="password" value="1234#" id="loginPassword" />
     <button type="button" onclick="login()">LogIn</button>
-  
   </form>
+  <text id="loginError"></text>
 
   <h2>Meals:</h2>
+  <text id="textMeals">Tutti i meal del sistema (eseguire il login per visualizzare i meal del fornitore)</text>
   <ul id="meals"></ul>
 
   <h2>Inserisci nuovo meal:</h2>
@@ -25,9 +26,6 @@
     <button type="button" onclick="insertMeal()">Inserisci nuovo meal</button>
   </form>
 
-  <h2>Lendings:</h2>
-  <ul id="bookLendings"></ul>
-  <script src="script.js"></script>
   <script src="fornitore.js"></script>
 
 </body>
