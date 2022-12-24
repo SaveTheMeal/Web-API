@@ -1,6 +1,59 @@
 const Fornitore = require("../models/fornitore");
 const Utils = require("../utils");
 
+const login = async function (req, res, next) {
+  utente = req.body;
+  if (
+    meal.hasOwnProperty("email") &&
+    meal.hasOwnProperty("password")
+  ) {
+    // find the user
+    let user = await Fornitore.findOne({
+      email: utente.email,
+    }).exec();
+
+    // user not found
+    if (!user) {
+      console.log("UTENTE NON TROVATO");
+      res.json({
+        success: false,
+        message: "Authentication failed. User not found.",
+      });
+    }
+
+    // check if password matches
+    if (user.password != utente.password) {
+      res.json({
+        success: false,
+        message: "Authentication failed. Wrong password.",
+      });
+    }
+
+    // if user is found and password is right create a token
+    var payload = {
+      email: user.email,
+      nomeAttivita: user.nomeAttivita,
+      indirizzoNegozio: user.indirizzoNegozio,
+      // other data encrypted in the token
+    };
+    var options = {
+      expiresIn: 86400, // expires in 24 hours
+    };
+    var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
+
+    res.json({
+      success: true,
+      message: "Enjoy your token!",
+      token: token,
+      email: user.email,
+      nomeAttivita: user.nomeAttivita,
+      indirizzoNegozio: user.indirizzoNegozio,
+      //self: "api/v1/" + user._id
+    });
+  } else {
+    return res.json({ message: "Fornitore credentials required" });
+  }
+};
 //GET '/fornitore'
 const getAllFornitore = (req, res, next) => {
   Fornitore.find({}, (err, data) => {

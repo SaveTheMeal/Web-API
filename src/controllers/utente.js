@@ -102,7 +102,7 @@ const newUtente = (req, res, next) => {
       }
     });
   } else {
-    return res.json({ message: "Utente object required" });
+    return res.json({ message: "Utente credentials required" });
   }
 };
 const getAllUtente = (req, res, next) => {
