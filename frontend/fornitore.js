@@ -36,24 +36,25 @@ function loadMeals() {
             meal.prezzo
         );
         li.appendChild(data);
-
-        /*
-        let span = document.createElement("span");
-        // span.innerHTML = `<a href="${book.self}">${book.title}</a>`;
-        let a = document.createElement("a");
-        a.href = meal.self;
-        a.textContent = meal.title;
-        // span.innerHTML += `<button type="button" onclick="takeBook('${book.self}')">Take the book</button>`
-        let button = document.createElement("button");
-        button.type = "button";
-        button.onclick = () => takeBook(meal.self);
-        button.textContent = "Take the book";
-
-        // Append all our elements
-        span.appendChild(a);
-        span.appendChild(button);
-        li.appendChild(span);
-        */
+        if (loggedUser.id) {
+          let button = document.createElement("button");
+          button.type = "button";
+          button.onclick = () => deleteMeal(meal._id);
+          button.textContent = "Elimina";
+          li.appendChild(button);
+        } else {
+          fetch("../fornitore/" + meal.fornitore, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          })
+            .then((resp) => resp.json()) // Transform the data into json
+            .then(function (forn) {
+              console.log(forn);
+              data.textContent += ", fornitore: " + forn.nomeAttivita;
+              return;
+            })
+            .catch((error) => console.error(error)); // If there is any error you will catch them here
+        }
         ul.appendChild(li);
         i++;
       });
@@ -85,14 +86,67 @@ function login() {
           console.log(data);
           document.getElementById("loginError").textContent = "";
           loggedUser = data;
-          // loggedUser.id = loggedUser.self.substring(loggedUser.self.lastIndexOf('/') + 1);
           document.getElementById("loggedUser").textContent =
             "Fornitore loggato: " + loggedUser.email;
           loadMeals();
-          document.getElementById("textMeals").textContent = "Tutti i meal del fornitore " + loggedUser.nomeAttivita;
+          document.getElementById("textMeals").textContent =
+            "Tutti i meal del fornitore " + loggedUser.nomeAttivita;
+          document.getElementById("loginform").style.display = "none";
+          document.getElementById("logoutButton").style.display = "";
+          document.getElementById("divInserimentoMeal").style.display = "";
         }
         return;
       })
       .catch((error) => console.error(error)); // If there is any error you will catch them here
   }
+}
+
+function logout() {
+  loggedUser = {};
+  document.getElementById("loggedUser").textContent = "";
+  loadMeals();
+  document.getElementById("textMeals").textContent =
+    "Tutti i meal del sistema (eseguire il login per visualizzare i meal del fornitore)";
+  document.getElementById("loginform").style.display = "";
+  document.getElementById("logoutButton").style.display = "none";
+  document.getElementById("divInserimentoMeal").style.display = "none";
+  return;
+}
+
+function insertMeal() {
+  //get the book title
+  var dimensione = document.getElementById("dimensioneMeal").value;
+  var prezzo = document.getElementById("prezzoMeal").value;
+
+  fetch("../meal", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      fornitore: loggedUser.id,
+      dimensione: dimensione,
+      prezzo: prezzo,
+      token: loggedUser.token,
+    }),
+  })
+    .then((resp) => {
+      console.log(resp);
+      loadMeals();
+      return;
+    })
+    .catch((error) => console.error(error)); // If there is any error you will catch them here
+}
+
+function deleteMeal(id) {
+  //get the book title
+  console.log(id);
+  fetch("../meal/" + id, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((resp) => {
+      console.log(resp);
+      loadMeals();
+      return;
+    })
+    .catch((error) => console.error(error)); // If there is any error you will catch them here
 }

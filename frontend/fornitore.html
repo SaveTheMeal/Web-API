@@ -7,24 +7,33 @@
 
   <text id="loggedUser"></text>
 
-  <form action="../meal" method="post" name="loginform" id="loginform">
-    <input name="email" value="test@gmail.com" id="loginEmail" />
-    <input name="password" value="1234#" id="loginPassword" />
-    <button type="button" onclick="login()">LogIn</button>
+  <form action="../meal/login" method="post" name="loginform" id="loginform">
+    <label for="email">Email:</label><br>
+    <input name="email" id="loginEmail" type="email" /><br>
+    <label for="password">Password:</label><br>
+    <input name="password" id="loginPassword" type="password" /><br>
+    <button type="button" onclick="login()">Login</button>
   </form>
+  <button type="button" id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
   <text id="loginError"></text>
 
   <h2>Meals:</h2>
   <text id="textMeals">Tutti i meal del sistema (eseguire il login per visualizzare i meal del fornitore)</text>
   <ul id="meals"></ul>
 
+  <div id="divInserimentoMeal" style="display: none;">
   <h2>Inserisci nuovo meal:</h2>
 
-  <form action="api/v1/books" method="post" name="mealform" id="mealform">
-    <input name="prezzo" value="prezzo" id="prezzoMeal" />
-    <input name="dimensione" value="dimensione" id="dimensioneMeal" />
+  <form action="../meal" method="post" name="mealform" id="mealform">
+    <select name="dimensione" id="dimensioneMeal">
+      <option value="piccolo">piccolo</option>
+      <option value="medio">medio</option>
+      <option value="grande">grande</option>
+    </select>
+    <input name="prezzo" value="10" id="prezzoMeal" type="number" />
     <button type="button" onclick="insertMeal()">Inserisci nuovo meal</button>
   </form>
+</div>
 
   <script src="fornitore.js"></script>
 

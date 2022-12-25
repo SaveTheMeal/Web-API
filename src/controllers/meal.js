@@ -25,14 +25,17 @@ const newMeal = (req, res, next) => {
   if (
     meal.hasOwnProperty("fornitore") &&
     meal.hasOwnProperty("prezzo") &&
-    meal.hasOwnProperty("dimensione") &&
-    meal.hasOwnProperty("disponibilita")
+    meal.hasOwnProperty("dimensione")
   ) {
+    if (!(meal.hasOwnProperty("disponibilita"))){
+      meal.disponibilita=true;
+    }
     Fornitore.findOne({ _id: meal.fornitore }, (err, data) => {
       if (data) {
         //create a new fornitore object using the fornitore model and req.body
         //create a new meal object using the meal model and req.body
         const nuovoMeal = new Meal({
+          id: meal._id,
           fornitore: meal.fornitore,
           prezzo: meal.prezzo,
           dimensione: meal.dimensione,
