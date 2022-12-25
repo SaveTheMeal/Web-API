@@ -5,9 +5,32 @@
 
   <h1>Utente</h1>
 
-  
+  <text id="loggedUser"></text>
 
-  <script src="script.js"></script>
+  <form action="../utente/login" method="post" name="loginform" id="loginform">
+    <label for="email">Email:</label><br>
+    <input name="email" id="loginEmail" type="email" /><br>
+    <label for="password">Password:</label><br>
+    <input name="password" id="loginPassword" type="password" /><br>
+    <button type="button" onclick="login()">Login</button>
+  </form>
+  <button type="button" id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
+  <text id="loginError"></text>
+
+
+  <h2>Meal disponibili:</h2>
+  <text id="textMeals">Ecco la lista dei fornitori con i relativi meal (fare login per acquistarli)<br></text>
+<select name="fornitori" id="fornitori" onchange="loadMeals()">
+    </select>
+  <ul id="meals"></ul>
+
+  <div id="mealsUtente" style="display: none;">
+  <h2>Meal dell'utente:</h2>
+  <text id="textMeals2">Ecco i meal acquistati dall'utente<br></text>
+  <ul id="meals2"></ul>
+</div>
+
+  <script src="utente.js"></script>
 
 </body>
 

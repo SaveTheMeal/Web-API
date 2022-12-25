@@ -6,7 +6,7 @@ const Utente = require("../models/utente");
 const getAllAcquisto = (req, res, next) => {
   if (req.query.hasOwnProperty("utente")) {
     utente = req.query.utente;
-    Acquisto.find({ utente: utente }, (err, data) => {
+    Acquisto.find({ acquirente: utente }, (err, data) => {
       if (err || !data || data.length==0) {
         return res.json({
           message: "Purchases don't exist from this user.",

@@ -8,7 +8,7 @@ const Utils = require("../utils");
 //GET '/utente'
 const login = async function (req, res, next) {
   utente = req.body;
-  if (meal.hasOwnProperty("email") && meal.hasOwnProperty("password")) {
+  if (utente.hasOwnProperty("email") && utente.hasOwnProperty("password")) {
     // find the user
     let user = await Utente.findOne({
       email: utente.email,
@@ -16,7 +16,6 @@ const login = async function (req, res, next) {
 
     // user not found
     if (!user) {
-      console.log("UTENTE NON TROVATO");
       res.json({
         success: false,
         message: "Authentication failed. User not found.",
@@ -44,6 +43,7 @@ const login = async function (req, res, next) {
       var token = jwt.sign(payload, process.env.SUPER_SECRET, options);
 
       res.json({
+        id: user._id,
         token: token,
         email: user.email,
         nome: user.nome,

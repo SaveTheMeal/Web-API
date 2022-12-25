@@ -122,7 +122,7 @@
             "description": "Meal id",
             "required": true,
             "schema": {
-              "tipe": "string"
+              "type": "string"
             }
           }
         ],
@@ -150,7 +150,7 @@
             "description": "Meal id",
             "required": true,
             "schema": {
-              "tipe": "string"
+              "type": "string"
             }
           }
         ],
@@ -161,6 +161,49 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/definitions/Meals"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fornitore/login": {
+      "post": {
+        "tags": ["Fornitore"],
+        "summary": "Login for suppliers",
+        "description": "This API will return a token if the credentials of the suppliers are right",
+        "parameters": [
+          {
+            "name": "credentials",
+            "in": "body",
+            "description": "supplier's credentials",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "default": "email@email.com"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
                 }
               }
             }
@@ -244,7 +287,7 @@
             "description": "fornitore id",
             "required": true,
             "schema": {
-              "tipe": "string"
+              "type": "string"
             }
           }
         ],
@@ -272,7 +315,50 @@
             "description": "fornitore id",
             "required": true,
             "schema": {
-              "tipe": "string"
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/utente/login": {
+      "post": {
+        "tags": ["Utente"],
+        "summary": "Login for users",
+        "description": "This API will return a token if the credentials of the user are right",
+        "parameters": [
+          {
+            "name": "credentials",
+            "in": "body",
+            "description": "user's credentials",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "default": "email@email.com"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
             }
           }
         ],
@@ -457,7 +543,7 @@
             "description": "purchase id",
             "required": true,
             "schema": {
-              "tipe": "string"
+              "type": "string"
             }
           }
         ],
