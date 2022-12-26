@@ -1,8 +1,9 @@
 <head>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-
+  <div class="parent">
   <h1>Utente</h1>
 
   <text id="loggedUser"></text>
@@ -12,7 +13,7 @@
     <input name="email" id="loginEmail" type="email" /><br>
     <label for="password">Password:</label><br>
     <input name="password" id="loginPassword" type="password" /><br>
-    <button type="button" onclick="login()">Login</button>
+    <button class="bottone"  type="button"  onclick="login()">Login</button>
   </form>
   <button type="button" id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
   <text id="loginError"></text>
@@ -20,18 +21,20 @@
 
   <h2>Meal disponibili:</h2>
   <text id="textMeals">Ecco la lista dei fornitori con i relativi meal (fare login per acquistarli)<br></text>
-<select name="fornitori" id="fornitori" onchange="loadMeals()">
-    </select>
+  <select name="fornitori" id="fornitori" onchange="loadMeals()">
+  </select>
   <ul id="meals"></ul>
 
   <div id="mealsUtente" style="display: none;">
-  <h2>Meal dell'utente:</h2>
-  <text id="textMeals2">Ecco i meal acquistati dall'utente<br></text>
-  <ul id="meals2"></ul>
-</div>
+    <h2>Meal dell'utente:</h2>
+    <text id="textMeals2">Ecco i meal acquistati dall'utente<br></text>
+    <ul id="meals2"></ul>
+  </div>
 
   <script src="utente.js"></script>
+  <img src="save.png" height="150" width="130">
 
 </body>
+</div>
 
 </html>

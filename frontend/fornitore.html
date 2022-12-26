@@ -1,8 +1,9 @@
 <head>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-
+  <div class="parent">
   <h1>Fornitore</h1>
 
   <text id="loggedUser"></text>
@@ -12,9 +13,9 @@
     <input name="email" id="loginEmail" type="email" /><br>
     <label for="password">Password:</label><br>
     <input name="password" id="loginPassword" type="password" /><br>
-    <button type="button" onclick="login()">Login</button>
+    <button class="bottone" type="button" onclick="login()">Login</button>
   </form>
-  <button type="button" id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
+  <button id = "bottone2" type="button" id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
   <text id="loginError"></text>
 
   <h2>Meals:</h2>
@@ -36,7 +37,8 @@
 </div>
 
   <script src="fornitore.js"></script>
-
+  <img src="save.png" height="150" width="130" >
 </body>
+</div>
 
 </html>
