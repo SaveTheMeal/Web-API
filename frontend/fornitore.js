@@ -138,7 +138,10 @@ function loadMeals() {
           // Map through the results and for each run the code below
 
           let li = document.createElement("li");
-
+          li.classList.add("list-group-item");
+          li.classList.add("list-group-item-action");
+          li.classList.add("p-4");
+          li.classList.add("list-group-item-dark");
           let data = document.createTextNode(
             i +
               ". " +
@@ -147,7 +150,8 @@ function loadMeals() {
               ", disponibilità: " +
               meal.disponibilita +
               ", prezzo: " +
-              meal.prezzo
+              meal.prezzo +
+              "     "
           );
           li.appendChild(data);
           if (loggedUser.id) {

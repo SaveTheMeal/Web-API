@@ -143,22 +143,28 @@ function loadMeals() {
             // Map through the results and for each run the code below
 
             let li = document.createElement("li");
+            li.classList.add("list-group-item");
+            li.classList.add("list-group-item-action");
+            li.classList.add("p-4");
+            li.classList.add("list-group-item-dark");
 
             let data = document.createTextNode(
               i +
-                ". " +
-                "Dimensione: " +
-                meal.dimensione +
-                ", disponibilità: " +
-                meal.disponibilita +
-                ", prezzo: " +
-                meal.prezzo
+              ". " +
+              "Dimensione: " +
+              meal.dimensione +
+              ", disponibilità: " +
+              meal.disponibilita +
+              ", prezzo: " +
+              meal.prezzo +
+              "\t"
             );
             li.appendChild(data);
             if (loggedUser.id) {
               if (meal.disponibilita == true) {
                 let button = document.createElement("button");
                 button.type = "button";
+                button.classList.add("bottone");
                 button.onclick = () => acquistaMeal(meal._id);
                 button.textContent = "Acquista";
                 li.appendChild(button);
@@ -374,13 +380,13 @@ function loadFeedback() {
         valutazione.value = 0;
         commento.value = "";
         id.value = 0;
-        valore.textContent=0;
+        valore.textContent = 0;
       }
     })
     .catch((error) => console.error(error)); // If there is any error you will catch them here
 }
 
-function valoreValutazione(){
+function valoreValutazione() {
   var valore = document.getElementById("valoreValutazione");
   var valutazione = document.getElementById("valutazione");
 
