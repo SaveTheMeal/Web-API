@@ -4,22 +4,22 @@ const feedbackSchema = new mongoose.Schema({
   fornitore: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "fornitores",
-    required: true
+    required: true,
   },
   utente: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'utentes',
-    required: true
+    ref: "utentes",
+    required: true,
   },
   valutazione: {
     type: Number,
-    required: true
+    required: true,
   },
   puntiDiForza: {
-    type: String
+    type: String,
   },
   commento: {
-    type: String
+    type: String,
   },
 });
 

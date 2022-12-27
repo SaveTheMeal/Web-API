@@ -6,7 +6,7 @@ const getAllMeal = (req, res, next) => {
   if (req.query.hasOwnProperty("fornitore")) {
     fornitore = req.query.fornitore;
     Meal.find({ fornitore: fornitore }, (err, data) => {
-      if (err || !data || data.length==0) {
+      if (err || !data || data.length == 0) {
         return res.json({ message: "Meals don't exist from this supplier." });
       } else return res.json(data); //return the meal object if found
     });
@@ -27,8 +27,8 @@ const newMeal = (req, res, next) => {
     meal.hasOwnProperty("prezzo") &&
     meal.hasOwnProperty("dimensione")
   ) {
-    if (!(meal.hasOwnProperty("disponibilita"))){
-      meal.disponibilita=true;
+    if (!meal.hasOwnProperty("disponibilita")) {
+      meal.disponibilita = true;
     }
     Fornitore.findOne({ _id: meal.fornitore }, (err, data) => {
       if (data) {

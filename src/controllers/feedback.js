@@ -5,7 +5,20 @@ const Acquisto = require("../models/acquisto");
 const Utils = require("../utils");
 
 const getAllFeedback = (req, res, next) => {
-  if (req.query.hasOwnProperty("fornitore")) {
+  if (
+    req.query.hasOwnProperty("fornitore") &&
+    req.query.hasOwnProperty("utente")
+  ) {
+    fornitore = req.query.fornitore;
+    utente = req.query.utente;
+    Feedback.find({ fornitore: fornitore, utente: utente }, (err, data) => {
+      if (err || !data) {
+        return res.json({
+          message: "Error.",
+        });
+      } else return res.json(data); //return the meal object if found
+    });
+  } else if (req.query.hasOwnProperty("fornitore")) {
     fornitore = req.query.fornitore;
     Feedback.find({ fornitore: fornitore }, (err, data) => {
       if (err || !data || data.length == 0) {
@@ -96,7 +109,23 @@ const newFeedback = (req, res, next) => {
   }
 };
 
+const deleteFeedback = (req, res, next) => {
+  id = req.params["id"];
+  Feedback.findOne({ _id: id }, (err, data) => {
+    if (err || !data) {
+      return res.json({ message: "Feedback doesn't exist." });
+    } else
+      Feedback.deleteOne({ _id: id }, (err) => {
+        if (err) {
+          return res.json({ message: "Complete delete failed" });
+        }
+        return res.json({ message: "Complete delete successful" });
+      });
+  });
+};
+
 module.exports = {
   getAllFeedback,
   newFeedback,
+  deleteFeedback,
 };

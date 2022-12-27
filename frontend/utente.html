@@ -1,40 +1,78 @@
+<html>
+
 <head>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
   <div class="parent">
-  <h1>Utente</h1>
+    <h1>Utente</h1>
+    <button class="bottone" type="button" onclick="updateAll()">Ricarica dati</button><br>
 
-  <text id="loggedUser"></text>
+    <text id="loggedUser"></text>
 
-  <form action="../utente/login" method="post" name="loginform" id="loginform">
-    <label for="email">Email:</label><br>
-    <input name="email" id="loginEmail" type="email" /><br>
-    <label for="password">Password:</label><br>
-    <input name="password" id="loginPassword" type="password" /><br>
-    <button class="bottone"  type="button"  onclick="login()">Login</button>
-  </form>
-  <button type="button" id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
-  <text id="loginError"></text>
+    <div name="loginform" id="loginform">
+      <label for="email">Email:</label><br>
+      <input name="email" id="loginEmail" type="email" /><br>
+      <label for="password">Password:</label><br>
+      <input name="password" id="loginPassword" type="password" /><br>
+      <button class="bottone" type="button" onclick="login()">Login</button><br>
+      <text id="loginError"></text>
+    </div>
+    <button class="bottone" type="button" id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
 
+    <div id="registrazione">
+      <label for="email">Email:</label><br>
+      <input name="email" id="registrazioneEmail" type="email" /><br>
+      <label for="password">Password:</label><br>
+      <input name="password" id="registrazionePassword" type="password" /><br>
+      <label for="nome">Nome:</label><br>
+      <input name="nome" id="registrazioneNome" type="text" /><br>
+      <label for="cognome">Cognome:</label><br>
+      <input name="cognome" id="registrazioneCognome" type="text" /><br>
+      <button class="bottone" type="button" onclick="registrazione()">Registrati</button><br>
+      <text id="registrazioneError"></text>
+    </div>
 
-  <h2>Meal disponibili:</h2>
-  <text id="textMeals">Ecco la lista dei fornitori con i relativi meal (fare login per acquistarli)<br></text>
-  <select name="fornitori" id="fornitori" onchange="loadMeals()">
-  </select>
-  <ul id="meals"></ul>
+    <h2>Meal disponibili:</h2>
+    <div id="divIntolleranze" style="display: none;">
+      <label for="intolleranze">Eventuali intolleranze:</label><br>
+      <input name="intolleranze" id="intolleranze" type="text" /><br>
+      <label for="borsa">Borsa:</label><br>
+      <input type="radio" name="yes_no" value="true" checked>Si</input>
+      <input type="radio" name="yes_no" value="false">No</input>
+    </div>
+    <text id="textMeals">Ecco la lista dei fornitori con i relativi meal (fare login per acquistarli)<br></text>
+    <select name="fornitori" id="fornitori" onchange="loadMeals()">
+    </select>
+    <ul id="meals"></ul>
 
-  <div id="mealsUtente" style="display: none;">
-    <h2>Meal dell'utente:</h2>
-    <text id="textMeals2">Ecco i meal acquistati dall'utente<br></text>
-    <ul id="meals2"></ul>
+    <div id="mealsUtente" style="display: none;">
+      <h2>Meal dell'utente:</h2>
+      <text id="textMeals2">Ecco i meal acquistati dall'utente<br></text>
+      <ul id="meals2"></ul>
+    </div>
+
+    <div id="feedback" style="display: none;">
+      <h2>Scrivi un feedback:</h2>
+      <select name="fornitoriFeedback" id="fornitoriFeedback" onchange="loadFeedback()">
+      </select><br>
+      <div id="feedbackForm">
+        <input name="feedbackID" id="feedbackID" type="hidden" />
+        <label for="valutazione">Valutazione:</label><br>
+        <input name="valutazione" id="valutazione" type="range" min="0" max="5" /><br>
+
+        <label for="commento">Commento:</label><br>
+        <input name="commento" id="commento" type="text" /><br>
+
+        <button class="bottone" type="button" onclick="caricaFeedback()">Invia</button><br>
+      </div>
+    </div>
+
+    <script src="utente.js"></script>
+    <img src="save.png" height="150" width="130">
+
   </div>
-
-  <script src="utente.js"></script>
-  <img src="save.png" height="150" width="130">
-
 </body>
-</div>
 
 </html>

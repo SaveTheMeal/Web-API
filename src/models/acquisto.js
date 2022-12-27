@@ -3,11 +3,11 @@ const { default: mongoose } = require("mongoose");
 const acquistoSchema = new mongoose.Schema({
   meal: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'meals'
+    ref: "meals",
   },
   acquirente: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'utentes'
+    ref: "utentes",
   },
   presenzaIntolleranze: Boolean,
   intolleranze: String,
@@ -15,7 +15,7 @@ const acquistoSchema = new mongoose.Schema({
   borsa: Boolean,
   stato: {
     type: String,
-    default: "In attesa"
+    default: "In attesa",
   },
 });
 

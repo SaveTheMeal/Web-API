@@ -4,27 +4,27 @@ const fornitoreSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   nomeAttivita: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   indirizzoNegozio: {
     type: String,
-    required: true
+    required: true,
   },
   tipologiaAlimenti: {
     type: String,
   },
   IBAN: {
     type: String,
-    required: true
+    required: true,
   },
   immagine: {
     type: String,

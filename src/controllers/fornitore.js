@@ -67,14 +67,17 @@ const newFornitore = (req, res, next) => {
     fornitore.hasOwnProperty("nomeAttivita") &&
     fornitore.hasOwnProperty("indirizzoNegozio") &&
     fornitore.hasOwnProperty("tipologiaAlimenti") &&
-    fornitore.hasOwnProperty("IBAN")
+    fornitore.hasOwnProperty("IBAN") &&
+    fornitore.hasOwnProperty("immagine")
   ) {
     if (
       typeof fornitore.email != "string" ||
       !Utils.checkIfEmailInString(fornitore.email)
     ) {
-      res.status(400).json({
-        error: 'The field "email" must be a non-empty string, in email format',
+      res.json({
+        success: false,
+        message:
+          'The field "email" must be a non-empty string, in email format',
       });
       return;
     } else {
@@ -98,6 +101,7 @@ const newFornitore = (req, res, next) => {
               indirizzoNegozio: fornitore.indirizzoNegozio,
               tipologiaAlimenti: fornitore.tipologiaAlimenti,
               IBAN: fornitore.IBAN,
+              immagine: fornitore.immagine,
             });
             // save this object to database
             nuovoFornitore.save((err, data) => {

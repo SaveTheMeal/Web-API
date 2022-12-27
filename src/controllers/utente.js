@@ -68,8 +68,9 @@ const newUtente = (req, res, next) => {
       typeof utente.email != "string" ||
       !Utils.checkIfEmailInString(utente.email)
     ) {
-      res.status(400).json({
-        error: 'The field "email" must be a non-empty string, in email format',
+      res.json({
+        message:
+          'The field "email" must be a non-empty string, in email format',
       });
       return;
     }

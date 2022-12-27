@@ -1,44 +1,75 @@
+<html>
 <head>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
   <div class="parent">
-  <h1>Fornitore</h1>
+    <h1>Fornitore</h1>
+    <button class="bottone" type="button" onclick="updateAll()">Ricarica dati</button><br>
+    <text id="loggedUser"></text>
 
-  <text id="loggedUser"></text>
+    <form action="../fornitore/login" method="post" name="loginform" id="loginform">
+      <label for="email">Email:</label><br>
+      <input name="email" id="loginEmail" type="email" /><br>
+      <label for="password">Password:</label><br>
+      <input name="password" id="loginPassword" type="password" /><br>
+      <button class="bottone" type="button" onclick="login()">Login</button>
+    </form>
+    <button class="bottone" type="button" id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
+    <text id="loginError"></text>
 
-  <form action="../fornitore/login" method="post" name="loginform" id="loginform">
-    <label for="email">Email:</label><br>
-    <input name="email" id="loginEmail" type="email" /><br>
-    <label for="password">Password:</label><br>
-    <input name="password" id="loginPassword" type="password" /><br>
-    <button class="bottone" type="button" onclick="login()">Login</button>
-  </form>
-  <button id = "bottone2" type="button" id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
-  <text id="loginError"></text>
+    <div id="registrazione">
+      <label for="email">Email:</label><br>
+      <input name="email" id="registrazioneEmail" type="email" /><br>
+      <label for="password">Password:</label><br>
+      <input name="password" id="registrazionePassword" type="password" /><br>
+      <label for="nomeAttivita">Nome attività:</label><br>
+      <input name="nomeAttivita" id="registrazioneNomeAttivita" type="text" /><br>
+      <label for="indirizzoNegozio">Indirizzo negozio:</label><br>
+      <input name="indirizzoNegozio" id="registrazioneIndirizzoNegozio" type="text" /><br>
+      <label for="tipologiaAlimenti">Tipologia Alimenti:</label><br>
+      <input name="tipologiaAlimenti" id="registrazioneTipologiaAlimenti" type="text" /><br>
+      <label for="IBAN">IBAN:</label><br>
+      <input name="IBAN" id="registrazioneIBAN" type="text" /><br>
+      <button class="bottone" type="button" onclick="registrazione()">Registrati</button><br>
+      <text id="registrazioneError"></text>
+    </div>
 
-  <h2>Meals:</h2>
-  <text id="textMeals">Tutti i meal del sistema (eseguire il login per visualizzare i meal del fornitore)</text>
-  <ul id="meals"></ul>
+    <h2>Meals:</h2>
+    <text id="textMeals">Tutti i meal del sistema (eseguire il login per visualizzare i meal del fornitore)</text>
+    <ul id="meals"></ul>
 
-  <div id="divInserimentoMeal" style="display: none;">
-  <h2>Inserisci nuovo meal:</h2>
+    <div id="divInserimentoMeal" style="display: none;">
+      <h2>Inserisci nuovo meal:</h2>
 
-  <form action="../meal" method="post" name="mealform" id="mealform">
-    <select name="dimensione" id="dimensioneMeal">
-      <option value="piccolo">piccolo</option>
-      <option value="medio">medio</option>
-      <option value="grande">grande</option>
-    </select>
-    <input name="prezzo" value="10" id="prezzoMeal" type="number" />
-    <button type="button" onclick="insertMeal()">Inserisci nuovo meal</button>
-  </form>
+      <form action="../meal" method="post" name="mealform" id="mealform">
+        <select name="dimensione" id="dimensioneMeal">
+          <option value="piccolo">piccolo</option>
+          <option value="medio">medio</option>
+          <option value="grande">grande</option>
+        </select>
+        <input name="prezzo" value="10" id="prezzoMeal" type="number" />
+        <button class="bottone" type="button" onclick="insertMeal()">Inserisci nuovo meal</button>
+      </form>
+      <text id="inserimentoError"></text>
+    </div>
+
+    <div id="divAcquisti" style="display: none;">
+      <h2>Richieste di acquisto:</h2>
+      <text id="textMeals">Ecco le richieste di acquisto in sospeso: </text>
+      <ul id="acquisti"></ul>
+    </div>
+
+    <div id="divFeedback" style="display: none;">
+      <h2>Feedback:</h2>
+      <text id="textMeals">Ecco i feedback del tuo locale: </text>
+      <ul id="feedback"></ul>
+    </div>
+
+    <script src="fornitore.js"></script>
+    <img src="save.png" height="150" width="130">
 </div>
-
-  <script src="fornitore.js"></script>
-  <img src="save.png" height="150" width="130" >
 </body>
-</div>
 
 </html>
