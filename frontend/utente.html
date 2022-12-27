@@ -35,6 +35,9 @@
     </div>
 
     <h2>Meal disponibili:</h2>
+    <text id="textMeals">Ecco la lista dei fornitori con i relativi meal (fare login per acquistarli)<br></text>
+    <select name="fornitori" id="fornitori" onchange="loadMeals()">
+    </select>
     <div id="divIntolleranze" style="display: none;">
       <label for="intolleranze">Eventuali intolleranze:</label><br>
       <input name="intolleranze" id="intolleranze" type="text" /><br>
@@ -42,9 +45,6 @@
       <input type="radio" name="yes_no" value="true" checked>Si</input>
       <input type="radio" name="yes_no" value="false">No</input>
     </div>
-    <text id="textMeals">Ecco la lista dei fornitori con i relativi meal (fare login per acquistarli)<br></text>
-    <select name="fornitori" id="fornitori" onchange="loadMeals()">
-    </select>
     <ul id="meals"></ul>
 
     <div id="mealsUtente" style="display: none;">
@@ -60,17 +60,18 @@
       <div id="feedbackForm">
         <input name="feedbackID" id="feedbackID" type="hidden" />
         <label for="valutazione">Valutazione:</label><br>
-        <input name="valutazione" id="valutazione" type="range" min="0" max="5" /><br>
-
+        <input name="valutazione" id="valutazione" type="range" min="0" max="5" onchange="valoreValutazione()" /><br>
+        <text id="valoreValutazione">0</text><br>
         <label for="commento">Commento:</label><br>
         <input name="commento" id="commento" type="text" /><br>
 
         <button class="bottone" type="button" onclick="caricaFeedback()">Invia</button><br>
+        <text id="feedbackError"></text>
       </div>
     </div>
 
     <script src="utente.js"></script>
-    <img src="save.png" height="150" width="130">
+    <br><br><img src="save.png" height="150" width="130">
 
   </div>
 </body>

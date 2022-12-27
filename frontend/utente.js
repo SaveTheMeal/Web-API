@@ -286,6 +286,7 @@ function acquistaMeal(id) {
 }
 
 function loadFornitoriFeedback() {
+  document.getElementById("feedbackError").textContent = "";
   document.getElementById("feedbackForm").style.display = "";
   var select = document.getElementById("fornitoriFeedback");
   var i,
@@ -355,6 +356,7 @@ function loadFeedback() {
   var valutazione = document.getElementById("valutazione");
   var commento = document.getElementById("commento");
   var id = document.getElementById("feedbackID");
+  var valore = document.getElementById("valoreValutazione");
 
   fetch("../feedback?utente=" + loggedUser.id + "&fornitore=" + fornitore)
     .then((resp) => resp.json()) // Transform the data into json
@@ -366,17 +368,27 @@ function loadFeedback() {
         valutazione.value = feedback.valutazione;
         commento.value = feedback.commento;
         id.value = feedback._id;
+        valore.textContent = feedback.valutazione;
         console.log(feedback);
       } else {
         valutazione.value = 0;
         commento.value = "";
         id.value = 0;
+        valore.textContent=0;
       }
     })
     .catch((error) => console.error(error)); // If there is any error you will catch them here
 }
 
+function valoreValutazione(){
+  var valore = document.getElementById("valoreValutazione");
+  var valutazione = document.getElementById("valutazione");
+
+  valore.textContent = valutazione.value;
+}
+
 function caricaFeedback() {
+  document.getElementById("feedbackError").textContent = "";
   var fornitore = document.getElementById("fornitoriFeedback").value;
   var valutazione = document.getElementById("valutazione");
   var commento = document.getElementById("commento");
@@ -402,8 +414,8 @@ function caricaFeedback() {
           }),
         })
           .then((resp) => {
-            console.log(resp);
             updateAll();
+            document.getElementById("feedbackError").textContent = "Feedback inviato";
             return;
           })
           .catch((error) => console.error(error)); // If there is any error you will catch them here
@@ -424,8 +436,8 @@ function caricaFeedback() {
       }),
     })
       .then((resp) => {
-        console.log(resp);
         updateAll();
+        document.getElementById("feedbackError").textContent = "Feedback inviato";
         return;
       })
       .catch((error) => console.error(error)); // If there is any error you will catch them here

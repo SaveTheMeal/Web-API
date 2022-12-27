@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -44,12 +45,14 @@
       <h2>Inserisci nuovo meal:</h2>
 
       <form action="../meal" method="post" name="mealform" id="mealform">
+        <label for="dimensione">Dimensione:</label><br>
         <select name="dimensione" id="dimensioneMeal">
           <option value="piccolo">piccolo</option>
           <option value="medio">medio</option>
           <option value="grande">grande</option>
-        </select>
-        <input name="prezzo" value="10" id="prezzoMeal" type="number" />
+        </select><br>
+        <label for="prezzo">Prezzo:</label><br>
+        <input name="prezzo" value="10" id="prezzoMeal" type="number" /><br>
         <button class="bottone" type="button" onclick="insertMeal()">Inserisci nuovo meal</button>
       </form>
       <text id="inserimentoError"></text>
@@ -68,8 +71,8 @@
     </div>
 
     <script src="fornitore.js"></script>
-    <img src="save.png" height="150" width="130">
-</div>
+    <br><br><img src="save.png" height="150" width="130">
+  </div>
 </body>
 
 </html>
