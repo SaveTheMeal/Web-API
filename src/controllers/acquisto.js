@@ -106,7 +106,7 @@ const newAcquisto = (req, res, next) => {
   }
 };
 const getOneAcquisto = (req, res, next) => {
-  codiceID = req.params["codiceID"]; //get the meal ID
+  codiceID = req.params["id"]; //get the meal ID
   //find the specific meal with that ID
   Acquisto.findOne({ meal: codiceID }, (err, data) => {
     if (err || !data) {
@@ -115,8 +115,39 @@ const getOneAcquisto = (req, res, next) => {
   });
 };
 
+const updateAcquisto = (req, res, next) => {
+  id = req.params["id"]; //get the meal ID
+  acquisto = req.body;
+  if (acquisto.hasOwnProperty("stato")) {
+    stato = acquisto.stato;
+    Acquisto.findOneAndUpdate({ _id: id }, { stato: stato }, (err, data) => {
+      if (err || !data) {
+        return res.json({ message: "Acquisto doesn't exist." });
+      } else {
+        if (stato == "rifiutato") {
+          Meal.findOneAndUpdate(
+            { _id: data.meal },
+            { disponibilita: "true" },
+            (err, data) => {
+              if (err || !data) {
+                return res.json({ message: "Meal doesn't exist." });
+              } else {
+              }
+              return res.json(data); //return the acquisto object if found
+            }
+          );
+        }
+        return res.json(data); //return the acquisto object if found
+      }
+    });
+  } else {
+    return res.json({ message: "Stato required" });
+  }
+};
+
 module.exports = {
   getAllAcquisto,
   newAcquisto,
   getOneAcquisto,
+  updateAcquisto,
 };

@@ -122,7 +122,10 @@
             "description": "Meal id",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
             }
           }
         ],
@@ -150,7 +153,10 @@
             "description": "Meal id",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
             }
           }
         ],
@@ -284,7 +290,10 @@
             "description": "fornitore id",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
             }
           }
         ],
@@ -312,7 +321,10 @@
             "description": "fornitore id",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
             }
           }
         ],
@@ -381,7 +393,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/Utente"
+                  "$ref": "#/definitions/Utenti"
                 }
               }
             }
@@ -420,11 +432,16 @@
     "/feedback": {
       "get": {
         "tags": ["Feedback"],
-        "summary": "Get all the feedbacks in the system, or (if specified) the feedbacks of a specific supplier",
-        "description": "This API will return an array of all the feedbacks in the system. In the case that a supplier is specified, this API will return an array of all the feedbacks made on that supplier",
+        "summary": "Get all the feedbacks in the system, or (if specified) the feedbacks of a specific supplier, or (if specified) the feedback of a user for a suppplier",
+        "description": "This API will return an array of all the feedbacks in the system. In the case that a supplier is specified, this API will return an array of all the feedbacks made on that supplier. In the case that also the user is specified, this API will return the specific feedback from that user for that supplier",
         "parameters": [
           {
             "name": "fornitore",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "utente",
             "in": "query",
             "required": false
           }
@@ -460,6 +477,39 @@
         "responses": {
           "200": {
             "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Feedbacks"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedback/{id}": {
+      "delete": {
+        "tags": ["Feedback"],
+        "summary": "Delete feedback by id",
+        "description": "This API will delete by the system the feedback that has the id specified",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Feedback id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -537,7 +587,51 @@
             "description": "purchase id",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Acquisti"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Acquisto"],
+        "summary": "Update the status of the purchase by id",
+        "description": "This API will update the status of the purchase in the system that has the id specified",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "purchase id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
+            }
+          },
+          {
+            "name": "stato",
+            "description": "purchase status",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "acquistato"
             }
           }
         ],

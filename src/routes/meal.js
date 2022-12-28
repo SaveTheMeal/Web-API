@@ -3,7 +3,6 @@ const mealController = require("../controllers/meal");
 const tokenCheckerFornitore = require("../controllers/tokenCheckerFornitore");
 const router = express.Router();
 
-router.post("/meal", tokenCheckerFornitore);
 router.post("/meal", mealController.newMeal);
 router.get("/meal", mealController.getAllMeal);
 router.delete("/meal", mealController.deleteAllMeal);

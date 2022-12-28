@@ -145,17 +145,18 @@ function loadMeals() {
           let data = document.createTextNode(
             i +
               ". " +
-              " Dimensione: " +
+              ' Dimensione: "' +
               meal.dimensione +
-              ", disponibilità: " +
+              '", disponibilità: "' +
               meal.disponibilita +
-              ", prezzo: " +
+              '", prezzo: "' +
               meal.prezzo +
-              "     "
+              '"'
           );
           li.appendChild(data);
           if (loggedUser.id) {
             if (meal.disponibilita == true) {
+              li.appendChild(document.createTextNode("\t"));
               let button = document.createElement("button");
               button.type = "button";
               button.classList.add("bottone");
@@ -170,7 +171,7 @@ function loadMeals() {
             })
               .then((resp) => resp.json()) // Transform the data into json
               .then(function (forn) {
-                data.textContent += ", fornitore: " + forn.nomeAttivita;
+                data.textContent += ', fornitore: "' + forn.nomeAttivita + '"';
                 return;
               })
               .catch((error) => console.error(error)); // If there is any error you will catch them here
@@ -265,21 +266,22 @@ function getRichiesteAcquisto() {
                 let data = document.createTextNode(
                   i +
                     ". " +
-                    " Dimensione: " +
+                    ' Dimensione: "' +
                     meal.dimensione +
-                    ", disponibilità: " +
+                    '", disponibilità: "' +
                     meal.disponibilita +
-                    ", prezzo: " +
+                    '", prezzo: "' +
                     meal.prezzo +
-                    ", intolleranze: " +
-                    acquisto.intolleranze
+                    '", intolleranze: "' +
+                    acquisto.intolleranze +
+                    '"\t'
                 );
                 li.appendChild(data);
                 let butAccetta = document.createElement("button");
                 butAccetta.type = "button";
                 butAccetta.classList.add("bottone");
                 butAccetta.onclick = () =>
-                  updateAcquisto(acquisto._id, "accettato");
+                  updateAcquisto(acquisto._id, "acquistato");
                 butAccetta.textContent = "Accetta";
                 li.appendChild(butAccetta);
                 let butRifiuta = document.createElement("button");
@@ -326,10 +328,11 @@ function loadFeedback() {
           let data = document.createTextNode(
             i +
               ". " +
-              " Valutazione: " +
+              ' Valutazione: "' +
               feedback.valutazione +
-              ", commento: " +
-              feedback.commento
+              '", commento: "' +
+              feedback.commento +
+              '"'
           );
           li.appendChild(data);
           ul.appendChild(li);
@@ -348,8 +351,20 @@ function loadFeedback() {
     .catch((error) => console.error(error)); // If there is any error you will catch them here
 }
 
-function updateAcquisto(id, bool) {
-  alert("Funzione non disponibile");
+function updateAcquisto(id, stato) {
+  console.log(stato);
+  fetch("../acquisto/" + id, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      stato: stato,
+    }),
+  })
+    .then((resp) => {
+      updateAll();
+      return;
+    })
+    .catch((error) => console.error(error)); // If there is any error you will catch them here
 }
 
 function updateAll() {

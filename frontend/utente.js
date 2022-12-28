@@ -150,14 +150,14 @@ function loadMeals() {
 
             let data = document.createTextNode(
               i +
-              ". " +
-              "Dimensione: " +
-              meal.dimensione +
-              ", disponibilità: " +
-              meal.disponibilita +
-              ", prezzo: " +
-              meal.prezzo +
-              "\t"
+                ". " +
+                'Dimensione: "' +
+                meal.dimensione +
+                '", disponibilità: "' +
+                meal.disponibilita +
+                '", prezzo: "' +
+                meal.prezzo +
+                '"\t'
             );
             li.appendChild(data);
             if (loggedUser.id) {
@@ -220,21 +220,21 @@ function loadMealsUtente() {
                   let text =
                     i +
                     ". " +
-                    " Fornitore: " +
+                    ' Fornitore: "' +
                     forn.nomeAttivita +
-                    ", dimensione: " +
+                    '", dimensione: "' +
                     meal.dimensione +
-                    ", prezzo: " +
+                    '", prezzo: "' +
                     meal.prezzo +
-                    ", stato: " +
+                    '", stato: "' +
                     acquisto.stato +
-                    ", pagato: " +
+                    '", pagato: "' +
                     acquisto.isPaid +
-                    ", borsa: " +
-                    acquisto.borsa;
-
+                    '", borsa: "' +
+                    acquisto.borsa +
+                    '"';
                   if (acquisto.presenzaIntolleranze == true) {
-                    text += ", intolleranze: " + acquisto.intolleranze;
+                    text += ', intolleranze: "' + acquisto.intolleranze + '"';
                   }
 
                   let data = document.createTextNode(text);
@@ -421,7 +421,8 @@ function caricaFeedback() {
         })
           .then((resp) => {
             updateAll();
-            document.getElementById("feedbackError").textContent = "Feedback inviato";
+            document.getElementById("feedbackError").textContent =
+              "Feedback inviato";
             return;
           })
           .catch((error) => console.error(error)); // If there is any error you will catch them here
@@ -443,7 +444,8 @@ function caricaFeedback() {
     })
       .then((resp) => {
         updateAll();
-        document.getElementById("feedbackError").textContent = "Feedback inviato";
+        document.getElementById("feedbackError").textContent =
+          "Feedback inviato";
         return;
       })
       .catch((error) => console.error(error)); // If there is any error you will catch them here
