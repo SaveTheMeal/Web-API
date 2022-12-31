@@ -4,7 +4,7 @@
   "description": "Implementazione progetto SaveTheMeal",
   "main": "app.js",
   "scripts": {
-    "start": "node backend/app.js",
+    "start": "node backend/server.js",
     "test": "jest --coverage"
   },
   "author": "Alessia Laghezza, Alessio Novel, Anna Metelli",
