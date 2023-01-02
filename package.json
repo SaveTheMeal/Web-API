@@ -5,11 +5,12 @@
   "main": "app.js",
   "scripts": {
     "start": "node backend/server.js",
-    "test": "jest --coverage"
+    "test": "jest --verbose --silent"
   },
   "author": "Alessia Laghezza, Alessio Novel, Anna Metelli",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
