@@ -11,7 +11,7 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "savethemeal.herokuapp.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "tags": [
     {
